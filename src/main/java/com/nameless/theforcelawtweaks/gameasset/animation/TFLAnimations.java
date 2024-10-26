@@ -59,7 +59,7 @@ public class TFLAnimations {
     public static StaticAnimation HANDHALFSWORD_DUAL_AIRSLASH;
     public static StaticAnimation SQUAREOFF_ON;
     public static StaticAnimation SQUAREOFF_OFF;
-
+//sik
     public static StaticAnimation SQUAREOFF_LOOP;
     public static StaticAnimation SQUAREOFF_WALK;
     public static StaticAnimation SQUAREOFF_BlockaTtack;
