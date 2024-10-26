@@ -39,7 +39,7 @@ public class TheForceLawTweaks
         bus.addListener(Meshs::build);
         bus.addListener(this::regisgerPatch);
         bus.addListener(this::EntityRenderRegistry);
-     ///cs修正
+     ///xii
     }
     @OnlyIn(Dist.CLIENT)
     public void EntityRenderRegistry(final PatchedRenderersEvent.Add event) {
