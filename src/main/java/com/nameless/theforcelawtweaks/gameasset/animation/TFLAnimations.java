@@ -62,6 +62,12 @@ public class TFLAnimations {
 
     public static StaticAnimation SQUAREOFF_LOOP;
     public static StaticAnimation SQUAREOFF_WALK;
+    public static StaticAnimation SQUAREOFF_BlockaTtack;
+    public static StaticAnimation SQUAREOFF_Heavy;
+    public static StaticAnimation SQUAREOFF_Hit;
+    public static StaticAnimation SQUAREOFF_Light;
+
+
 
     //new
     public static StaticAnimation IDEL0;
@@ -279,6 +285,10 @@ public class TFLAnimations {
         SQUAREOFF_LOOP = new StaticAnimation(true, "biped/skill/squareoff_loop", biped);
         SQUAREOFF_WALK = new MovementAnimation(true, "biped/skill/squareoff_walk", biped);
 
+        SQUAREOFF_BlockaTtack=new ActionAnimation(0.05F, "biped/skill/squareoff_blockattack", biped);
+        SQUAREOFF_Heavy=new ActionAnimation(0.05F, "biped/skill/squareoff_heavy", biped);
+        SQUAREOFF_Hit=new ActionAnimation(0.05F, "biped/skill/squareoff_hit", biped);
+        SQUAREOFF_Light=new ActionAnimation(0.05F, "biped/skill/squareoff_light", biped);
 
         //new
         WALK = new StaticAnimation(true, "biped/monster/walk", biped);
