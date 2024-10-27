@@ -116,7 +116,7 @@ public class TFLAnimations {
         HumanoidArmature biped = Armatures.BIPED;
         //hand half sword
         //one hand
-        ///indestructible @s play "theforcelawtweaks:biped/skill/squareoff_light" 0 0
+        ///indestructible @s play "theforcelawtweaks:biped/combat/colossalsword/colossalsword_heavy2" 0 0
         HANDHALFSWORD_AUTO1 = new BasicAttackAnimation(0.1F, 0.46F, 0.56F, 0.58F, null, biped.toolR, "biped/combat/handhalfsword_auto1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.1F));
@@ -380,24 +380,28 @@ public class TFLAnimations {
                 .addProperty(AnimationProperty.ActionAnimationProperty.COORD_SET_TICK, MoveCoordFunctions.TRACE_LOCROT_TARGET)
                 .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, Animations.ReusableSources.CONSTANT_ONE);
         EXECUTEED = new LongHitAnimation(0.05F, "biped/hit/guard_break1", biped);
-
-        COLOSSALSWORD_HEAVY_ATTACK1 = new AttackAnimation(0.1F, 1.167F, 1.167F, 1.567F, 2.167F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/colossalsword/colossalsword_heavy1", biped)
+////indestructible @s play "theforcelawtweaks:biped/combat/colossalsword/colossalsword_heavy1" 0 0
+        COLOSSALSWORD_HEAVY_ATTACK1 = new AttackAnimation(0.1F, 1.167F, 1.167F, 1.367F, 2.167F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/colossalsword/colossalsword_heavy1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.75F))
                 .newTimePair(1.567F, Float.MAX_VALUE)
                 .addStateRemoveOld(EntityState.CAN_SKILL_EXECUTION, true)
+
                 .addEvents(AnimationEvent.TimePeriodEvent.create(0.01F, 0.54F, ((livingEntityPatch, staticAnimation, objects) -> {
 //                    if(EpicFightKeyMappings.DODGE.isDown()){
-//                        livingEntityPatch.playAnimationSynchronized(HANDHALFSWORD_DODGE_ATTACK1, 0.0F);
+//                        livingEntityPatch.playAnimationSynchronized(HANDHALFSWORD_DODGE_ATTACK1, 0.0F);ff
 //                    }
-                }), AnimationEvent.Side.CLIENT));
+                }), AnimationEvent.Side.CLIENT))
+                .addEvents(AnimationEvent.TimeStampedEvent.create(1.5F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(3.0F, 0.0F, 1.3F), Armatures.BIPED.rootJoint, 1.1D, 0.01F))
+        ;
         COLOSSALSWORD_HEAVY_ATTACK2 = new AttackAnimation(0.1F, 1, 1, 1.4F, 2, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/colossalsword/colossalsword_heavy2", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(1.75F)).addEvents(AnimationEvent.TimePeriodEvent.create(0.01F, 0.61F, ((livingEntityPatch, staticAnimation, objects) -> {
 //                    if(EpicFightKeyMappings.DODGE.isDown()){
 //                        livingEntityPatch.playAnimationSynchronized(HANDHALFSWORD_DODGE_ATTACK2, 0.0F);
 //                    }
-                }), AnimationEvent.Side.CLIENT));
+                }), AnimationEvent.Side.CLIENT))
+                .addEvents(AnimationEvent.TimeStampedEvent.create(1.43F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(3.0F, 0.0F, 1.3F), Armatures.BIPED.rootJoint, 1.1D, 0.01F));
 
     }
 }
