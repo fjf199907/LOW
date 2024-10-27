@@ -116,7 +116,7 @@ public class TFLAnimations {
         HumanoidArmature biped = Armatures.BIPED;
         //hand half sword
         //one hand
-        ///indestructible @s play "theforcelawtweaks:biped/combat/colossalsword/colossalsword_heavy2" 0 0
+        ///indestructible @s play "theforcelawtweaks:biped/skill/squareoff_blockattack" 0 0
         HANDHALFSWORD_AUTO1 = new BasicAttackAnimation(0.1F, 0.46F, 0.56F, 0.58F, null, biped.toolR, "biped/combat/handhalfsword_auto1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.1F));
@@ -249,6 +249,7 @@ public class TFLAnimations {
                 new AttackAnimation.Phase(0F, 0.4F, 0.41F, 0.67F, 0.80F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))))
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.1F));
+
         HANDHALFSWORD_DUAL_AUTO2 = new BasicAttackAnimation(0.05F, "biped/combat/handhalfsword_dual_auto2", biped,
                 new AttackAnimation.Phase(0F, 0.3F, 0.31F, 0.43F, 0.5F, Float.MAX_VALUE, false, InteractionHand.MAIN_HAND, List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))))
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F);
@@ -286,11 +287,23 @@ public class TFLAnimations {
         SQUAREOFF_LOOP = new StaticAnimation(true, "biped/skill/squareoff_loop", biped);
         SQUAREOFF_WALK = new MovementAnimation(true, "biped/skill/squareoff_walk", biped);
 
-        SQUAREOFF_BLOCKATTACK=new ActionAnimation(0.05F, "biped/skill/squareoff_blockattack", biped);
-        SQUAREOFF_HEAVY=new ActionAnimation(0.05F, "biped/skill/squareoff_heavy", biped);
-        SQUAREOFF_HIT=new ActionAnimation(0.05F, "biped/skill/squareoff_hit", biped);
-        SQUAREOFF_LIGHT=new ActionAnimation(0.05F, "biped/skill/squareoff_light", biped);
 
+        SQUAREOFF_BLOCKATTACK = new AttackAnimation(0.2F, 0.37F, 1.15F, 0.5F, 1.67F, ColliderPreset.SPEAR, biped.toolR, "biped/skill/squareoff_blockattack", biped)
+                .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
+                .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1.0F)
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(0.55F))
+                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.5F));
+        SQUAREOFF_HEAVY = new AttackAnimation(0.1F, 0.60F, 1.15F, 0.57F, 1.67F, ColliderPreset.SPEAR, biped.toolR, "biped/skill/squareoff_heavy", biped)
+                .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
+                .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1.0F)
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(0.75F))
+                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.8F));
+        SQUAREOFF_HIT=new ActionAnimation(0.05F, "biped/skill/squareoff_hit", biped);
+        SQUAREOFF_LIGHT = new AttackAnimation(0.1F, 0.467F, 1.15F, 0.57F, 1F, ColliderPreset.SPEAR, biped.toolR, "biped/skill/squareoff_light", biped)
+                .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
+                .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1.0F)
+                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(0.35F))
+                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.3F));
         //new
         WALK = new StaticAnimation(true, "biped/monster/walk", biped);
         IDEL0 = new StaticAnimation(true, "biped/monster/idle0", biped);
