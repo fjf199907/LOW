@@ -62,10 +62,10 @@ public class TFLAnimations {
 //sik
     public static StaticAnimation SQUAREOFF_LOOP;
     public static StaticAnimation SQUAREOFF_WALK;
-    public static StaticAnimation SQUAREOFF_BlockaTtack;
-    public static StaticAnimation SQUAREOFF_Heavy;
-    public static StaticAnimation SQUAREOFF_Hit;
-    public static StaticAnimation SQUAREOFF_Light;
+    public static StaticAnimation SQUAREOFF_BLOCKATTACK;
+    public static StaticAnimation SQUAREOFF_HEAVY;
+    public static StaticAnimation SQUAREOFF_HIT;
+    public static StaticAnimation SQUAREOFF_LIGHT;
 
 
 
@@ -116,6 +116,7 @@ public class TFLAnimations {
         HumanoidArmature biped = Armatures.BIPED;
         //hand half sword
         //one hand
+        ///indestructible @s play "theforcelawtweaks:biped/skill/squareoff_light" 0 0
         HANDHALFSWORD_AUTO1 = new BasicAttackAnimation(0.1F, 0.46F, 0.56F, 0.58F, null, biped.toolR, "biped/combat/handhalfsword_auto1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.1F));
@@ -285,10 +286,10 @@ public class TFLAnimations {
         SQUAREOFF_LOOP = new StaticAnimation(true, "biped/skill/squareoff_loop", biped);
         SQUAREOFF_WALK = new MovementAnimation(true, "biped/skill/squareoff_walk", biped);
 
-        SQUAREOFF_BlockaTtack=new ActionAnimation(0.05F, "biped/skill/squareoff_blockattack", biped);
-        SQUAREOFF_Heavy=new ActionAnimation(0.05F, "biped/skill/squareoff_heavy", biped);
-        SQUAREOFF_Hit=new ActionAnimation(0.05F, "biped/skill/squareoff_hit", biped);
-        SQUAREOFF_Light=new ActionAnimation(0.05F, "biped/skill/squareoff_light", biped);
+        SQUAREOFF_BLOCKATTACK=new ActionAnimation(0.05F, "biped/skill/squareoff_blockattack", biped);
+        SQUAREOFF_HEAVY=new ActionAnimation(0.05F, "biped/skill/squareoff_heavy", biped);
+        SQUAREOFF_HIT=new ActionAnimation(0.05F, "biped/skill/squareoff_hit", biped);
+        SQUAREOFF_LIGHT=new ActionAnimation(0.05F, "biped/skill/squareoff_light", biped);
 
         //new
         WALK = new StaticAnimation(true, "biped/monster/walk", biped);
