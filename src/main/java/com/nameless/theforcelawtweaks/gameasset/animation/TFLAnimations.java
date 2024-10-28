@@ -97,6 +97,23 @@ public class TFLAnimations {
     public static StaticAnimation COLOSSALSWORD_HEAVY_ATTACK2;
     public static StaticAnimation EXECUTE;
     public static StaticAnimation EXECUTEED;
+    //yullian
+    public static StaticAnimation YULLIAN_COMBOA1;
+    public static StaticAnimation YULLIAN_COMBOA2;
+    public static StaticAnimation YULLIAN_COMBOA3;
+    public static StaticAnimation YULLIAN_COMBOB1;
+    public static StaticAnimation YULLIAN_COMBOC1;
+    public static StaticAnimation YULLIAN_COMBOC2;
+    public static StaticAnimation YULLIAN_DODGEATTACK;
+    public static StaticAnimation YULLIAN_IDLE;
+    public static StaticAnimation YULLIAN_JUMP_HEAVYATTACK;
+    public static StaticAnimation YULLIAN_JUMPPATTACK;
+    public static StaticAnimation YULLIAN_RUN;
+    public static StaticAnimation YULLIAN_SPECIALATTACK1;
+    public static StaticAnimation YULLIAN_SPECIALATTACK2;
+    public static StaticAnimation YULLIAN_SPECIALATTACK3;
+    public static StaticAnimation YULLIAN_WALK;
+
 
     public static AnimationEvent.AnimationEventConsumer PURSUIT_EVENT = ((livingEntityPatch, staticAnimation, objects) -> {
 //        if(TFLKeyMappings.BASIC_ATTACK.isRelease()){
@@ -116,6 +133,26 @@ public class TFLAnimations {
         HumanoidArmature biped = Armatures.BIPED;
         //hand half sword
         //one hand
+
+        //yullian
+        YULLIAN_COMBOA1 = new AttackAnimation(0.1F, 0.8F, 1.15F, 0.93F, 1F,  InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboa1", biped);
+        YULLIAN_COMBOA2 = new AttackAnimation(0.1F, 1.63F, 1.15F, 0.83F, 1F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboa2", biped);
+        YULLIAN_COMBOA3 = new AttackAnimation(0.1F, 0.467F, 1.15F, 0.6F, 2.43F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_comboa3", biped);
+        YULLIAN_COMBOB1 = new AttackAnimation(0.1F, 0.8F, 1.15F, 0.93F, 1F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_combob1", biped);
+        YULLIAN_COMBOC1 = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboc1", biped);
+        YULLIAN_COMBOC2 = new AttackAnimation(0.1F, 0.6F, 1.15F, 0.7F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_comboc2", biped);
+
+        YULLIAN_DODGEATTACK = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_dodgeattack", biped);
+        YULLIAN_JUMP_HEAVYATTACK = new AttackAnimation(0.1F, 0.6F, 1.15F, 0.7F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jump_heavyattack", biped);
+        YULLIAN_JUMPPATTACK = new AttackAnimation(0.1F, 0.6F, 1.15F, 0.7F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jumpattack", biped);
+
+        YULLIAN_SPECIALATTACK1 = new AttackAnimation(0.1F, 0.8F, 1.15F, 0.93F, 1F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack1", biped);
+        YULLIAN_SPECIALATTACK2 = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack2", biped);
+        YULLIAN_SPECIALATTACK3 = new AttackAnimation(0.1F, 0.6F, 1.15F, 0.7F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_specialattack3", biped);
+        YULLIAN_WALK = new StaticAnimation(true, "biped/yullian/yullian_walk", biped);
+        YULLIAN_RUN = new StaticAnimation(true, "biped/yullian/yullian_run", biped);
+        YULLIAN_IDLE = new StaticAnimation(true, "biped/yullian/yullian_idle", biped);
+
         ///indestructible @s play "theforcelawtweaks:biped/skill/squareoff_blockattack" 0 0
         HANDHALFSWORD_AUTO1 = new BasicAttackAnimation(0.1F, 0.46F, 0.56F, 0.58F, null, biped.toolR, "biped/combat/handhalfsword_auto1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
@@ -304,6 +341,8 @@ public class TFLAnimations {
                 .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1.0F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(0.35F))
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.3F));
+
+
         //new
         WALK = new StaticAnimation(true, "biped/monster/walk", biped);
         IDEL0 = new StaticAnimation(true, "biped/monster/idle0", biped);
