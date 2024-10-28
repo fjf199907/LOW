@@ -143,12 +143,12 @@ public class TFLAnimations {
         YULLIAN_COMBOC2 = new AttackAnimation(0.1F, 0.6F, 1.15F, 0.7F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_comboc2", biped);
 
         YULLIAN_DODGEATTACK = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_dodgeattack", biped);
-        YULLIAN_JUMP_HEAVYATTACK = new AttackAnimation(0.1F, 0.6F, 1.15F, 0.7F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jump_heavyattack", biped);
-        YULLIAN_JUMPPATTACK = new AttackAnimation(0.1F, 0.6F, 1.15F, 0.7F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jumpattack", biped);
+        YULLIAN_JUMP_HEAVYATTACK = new AttackAnimation(0.1F, 0.967F, 1.15F, 1.06F, 4.267F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jump_heavyattack", biped);
+        YULLIAN_JUMPPATTACK = new AttackAnimation(0.1F, 0.67F, 1.15F, 0.76F, 2.83F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jumpattack", biped);
 
-        YULLIAN_SPECIALATTACK1 = new AttackAnimation(0.1F, 0.8F, 1.15F, 0.93F, 1F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack1", biped);
-        YULLIAN_SPECIALATTACK2 = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack2", biped);
-        YULLIAN_SPECIALATTACK3 = new AttackAnimation(0.1F, 0.6F, 1.15F, 0.7F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_specialattack3", biped);
+        YULLIAN_SPECIALATTACK1 = new AttackAnimation(0.1F, 1.43F, 1.15F, 1.8F, 4.2F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack1", biped);
+        YULLIAN_SPECIALATTACK2 = new AttackAnimation(0.1F, 1.23F, 1.15F, 1.56F, 4.167F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack2", biped);
+        YULLIAN_SPECIALATTACK3 = new AttackAnimation(0.1F, 1.567F, 1.15F, 2.0F, 3.8F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_specialattack3", biped);
         YULLIAN_WALK = new StaticAnimation(true, "biped/yullian/yullian_walk", biped);
         YULLIAN_RUN = new StaticAnimation(true, "biped/yullian/yullian_run", biped);
         YULLIAN_IDLE = new StaticAnimation(true, "biped/yullian/yullian_idle", biped);
@@ -332,13 +332,13 @@ public class TFLAnimations {
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.5F));
         SQUAREOFF_HEAVY = new AttackAnimation(0.1F, 0.60F, 1.15F, 0.57F, 1.67F, ColliderPreset.SPEAR, biped.toolR, "biped/skill/squareoff_heavy", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
-                .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1.0F)
+                .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 0.5F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(0.75F))
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.8F));
         SQUAREOFF_HIT=new ActionAnimation(0.05F, "biped/skill/squareoff_hit", biped);
         SQUAREOFF_LIGHT = new AttackAnimation(0.1F, 0.467F, 1.15F, 0.57F, 1F, ColliderPreset.SPEAR, biped.toolR, "biped/skill/squareoff_light", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
-                .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1.0F)
+                .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 0.5F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(0.35F))
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.3F));
 
