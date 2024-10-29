@@ -113,6 +113,7 @@ public class TFLAnimations {
     public static StaticAnimation YULLIAN_SPECIALATTACK2;
     public static StaticAnimation YULLIAN_SPECIALATTACK3;
     public static StaticAnimation YULLIAN_WALK;
+    public static StaticAnimation YULLIAN_DASHAHATTCK;
 
 
     public static AnimationEvent.AnimationEventConsumer PURSUIT_EVENT = ((livingEntityPatch, staticAnimation, objects) -> {
@@ -138,13 +139,22 @@ public class TFLAnimations {
         YULLIAN_COMBOA1 = new AttackAnimation(0.1F, 0.8F, 1.15F, 0.93F, 1F,  InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboa1", biped);
         YULLIAN_COMBOA2 = new AttackAnimation(0.1F, 1.63F, 1.15F, 0.83F, 1F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboa2", biped);
         YULLIAN_COMBOA3 = new AttackAnimation(0.1F, 0.467F, 1.15F, 0.6F, 2.43F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_comboa3", biped);
-        YULLIAN_COMBOB1 = new AttackAnimation(0.1F, 0.8F, 1.15F, 0.93F, 1F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_combob1", biped);
-        YULLIAN_COMBOC1 = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboc1", biped);
-        YULLIAN_COMBOC2 = new AttackAnimation(0.1F, 0.6F, 1.15F, 0.7F, 1F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_comboc2", biped);
 
+        YULLIAN_COMBOB1 = new BasicAttackAnimation(0.1F, "biped/yullian/yullian_combob1", biped,
+                new AttackAnimation.Phase(0F, 0.63F, 0.76F, 0.0F, 0.76F, InteractionHand.MAIN_HAND, biped.toolR, null),
+                new AttackAnimation.Phase(0.76F, 1.36F, 1.53F, 3.23F,1.53F, InteractionHand.MAIN_HAND, biped.toolR, null)
+        );
+
+
+        YULLIAN_COMBOC1 = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboc1", biped);
+        YULLIAN_COMBOC2 = new BasicAttackAnimation(0.1F, "biped/yullian/yullian_comboc2", biped,
+                new AttackAnimation.Phase(0F, 0.6F, 0.7F, 1F, 1F, InteractionHand.MAIN_HAND, biped.toolR, null),
+                new AttackAnimation.Phase(0F, 0.9F, 1.03F, 1.01F,1F, InteractionHand.MAIN_HAND, biped.toolR, null)
+        );
         YULLIAN_DODGEATTACK = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_dodgeattack", biped);
         YULLIAN_JUMP_HEAVYATTACK = new AttackAnimation(0.1F, 0.967F, 1.15F, 1.06F, 4.267F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jump_heavyattack", biped);
         YULLIAN_JUMPPATTACK = new AttackAnimation(0.1F, 0.67F, 1.15F, 0.76F, 2.83F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jumpattack", biped);
+        YULLIAN_DASHAHATTCK= new AttackAnimation(0.1F, 0.67F, 1.15F, 0.76F, 2.83F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_dashattack", biped);
 
         YULLIAN_SPECIALATTACK1 = new AttackAnimation(0.1F, 1.43F, 1.15F, 1.8F, 4.2F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack1", biped);
         YULLIAN_SPECIALATTACK2 = new AttackAnimation(0.1F, 1.23F, 1.15F, 1.56F, 4.167F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack2", biped);
