@@ -133,7 +133,7 @@ public class TFLAnimations {
     public static void build() {
         HumanoidArmature biped = Armatures.BIPED;
         //hand half sword
-        //one hand更新
+        //one hand更新s
 
         //yullian
         YULLIAN_COMBOA1 = new AttackAnimation(0.1F, 0.8F, 1.15F, 0.93F, 1F,  InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboa1", biped);
