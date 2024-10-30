@@ -3,6 +3,7 @@ package com.nameless.theforcelawtweaks.gameasset.animation;
 import com.mojang.datafixers.util.Pair;
 import com.nameless.theforcelawtweaks.api.BasicAttackWinAnimation;
 import com.nameless.theforcelawtweaks.client.keymappings.TFLKeyMappings;
+import com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch.CowDevilArmature;
 import com.nameless.theforcelawtweaks.main.TheForceLawTweaks;
 import net.minecraft.world.InteractionHand;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,6 +20,7 @@ import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.gameasset.Armatures;
 import yesman.epicfight.gameasset.ColliderPreset;
 import yesman.epicfight.gameasset.EpicFightSounds;
+import yesman.epicfight.model.armature.DragonArmature;
 import yesman.epicfight.model.armature.HumanoidArmature;
 import yesman.epicfight.particle.EpicFightParticles;
 import yesman.epicfight.skill.BasicAttack;
@@ -27,7 +29,7 @@ import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 import yesman.epicfight.world.damagesource.ExtraDamageInstance;
 import yesman.epicfight.world.damagesource.StunType;
 import yesman.epicfight.world.entity.eventlistener.ComboCounterHandleEvent;
-
+import com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch.CowDevilArmature;
 import java.util.List;
 import java.util.Set;
 
@@ -115,6 +117,19 @@ public class TFLAnimations {
     public static StaticAnimation YULLIAN_WALK;
     public static StaticAnimation YULLIAN_DASHAHATTCK;
 
+    public static StaticAnimation SKILL_ROLL_RIGHT;//翻滚
+    public static StaticAnimation SKILL_ROLL_AFTER;
+    public static StaticAnimation SKILL_ROLL_FRONT;
+    public static StaticAnimation SKILL_ROLL_LEFT;
+    public static StaticAnimation SKILL_ROLL;
+    public static StaticAnimation SKILL_DODGE_RIGHT;//闪避
+    public static StaticAnimation SKILL_DODGE_AFTER;
+    public static StaticAnimation SKILL_DODGE_FRONT;
+    public static StaticAnimation SKILL_DODGE_LEFT;
+
+    public static StaticAnimation CWO_DEVIL_IDLE;
+    public static StaticAnimation CWO_DEVIL_ATTACK;
+
 
     public static AnimationEvent.AnimationEventConsumer PURSUIT_EVENT = ((livingEntityPatch, staticAnimation, objects) -> {
 //        if(TFLKeyMappings.BASIC_ATTACK.isRelease()){
@@ -132,41 +147,66 @@ public class TFLAnimations {
 
     public static void build() {
         HumanoidArmature biped = Armatures.BIPED;
-        //hand half sword
-        //one hand更新s
+        CowDevilArmature bipex=com.nameless.theforcelawtweaks.gameasset.Armatures.cowDevilArmature;
 
-        //yullian
-        YULLIAN_COMBOA1 = new AttackAnimation(0.1F, 0.8F, 1.15F, 0.93F, 1F,  InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboa1", biped);
-        YULLIAN_COMBOA2 = new AttackAnimation(0.1F, 1.63F, 1.15F, 0.83F, 1F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboa2", biped);
-        YULLIAN_COMBOA3 = new AttackAnimation(0.1F, 0.467F, 1.15F, 0.6F, 2.43F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_comboa3", biped);
+                //hand half sword
+        CWO_DEVIL_ATTACK = new BasicAttackAnimation(0F, 2.36F,  2.56F, 4.86F, null,bipex.head, "biped/devil/cow_devil_attack", bipex);
+        CWO_DEVIL_IDLE = new BasicAttackAnimation(0F, 2.36F,  2.56F, 4.86F, null, bipex.head, "biped/devil/cow_devil_idle", bipex);
+
+
+
+        //one hand更新s
+        SKILL_ROLL_RIGHT = new BasicAttackAnimation(0.067F, 0.067F,  0.5F, 1F,  null, biped.toolR, "biped/skill/roll_right", biped)
+                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+        SKILL_ROLL_AFTER = new BasicAttackAnimation(0.067F, 0.067F,  0.5F, 1F, null, biped.toolR, "biped/skill/roll_after", biped)
+                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+        SKILL_ROLL_FRONT = new BasicAttackAnimation(0.067F, 0.067F,  0.5F, 1F, null, biped.toolR, "biped/skill/roll_front", biped)
+              .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+        SKILL_ROLL_LEFT = new BasicAttackAnimation(0.067F, 0.067F,  0.5F, 1F,  null, biped.toolR, "biped/skill/roll_left", biped)
+                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+
+
+
+
+        SKILL_DODGE_RIGHT = new BasicAttackAnimation(0.067F, 0.067F, 0.667F, 1F,  null, biped.toolR, "biped/skill/slidingstep_right", biped).addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+        SKILL_DODGE_AFTER = new BasicAttackAnimation(0.067F, 0.067F, 0.667F, 1F, null, biped.toolR, "biped/skill/slidingstep_after", biped).addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+        SKILL_DODGE_FRONT = new BasicAttackAnimation(0.067F, 0.067F, 0.667F,  1F, null, biped.toolR, "biped/skill/slidingstep_front", biped).addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+        SKILL_DODGE_LEFT = new BasicAttackAnimation(0.067F, 0.067F, 0.667F,  1F, null, biped.toolR, "biped/skill/slidingstep_left", biped).addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+
+
+           //yullian
+        YULLIAN_COMBOA1 = new BasicAttackAnimation(0.1F, 0.8F,  0.93F, 1F, null, biped.toolR, "biped/yullian/yullian_comboa1", biped);
+        YULLIAN_COMBOA2 = new BasicAttackAnimation(0.1F, 1.63F, 0.83F, 1F, null, biped.toolR, "biped/yullian/yullian_comboa2", biped);
+        YULLIAN_COMBOA3 = new BasicAttackAnimation(0.1F, 0.467F,  0.6F, 2.43F, null, biped.toolR,"biped/yullian/yullian_comboa3", biped);
 
         YULLIAN_COMBOB1 = new BasicAttackAnimation(0.1F, "biped/yullian/yullian_combob1", biped,
-                new AttackAnimation.Phase(0F, 0.63F, 0.76F, 0.0F, 0.76F, InteractionHand.MAIN_HAND, biped.toolR, null),
-                new AttackAnimation.Phase(0.76F, 1.36F, 1.53F, 3.23F,1.53F, InteractionHand.MAIN_HAND, biped.toolR, null)
+                new AttackAnimation.Phase(0F, 0.63F, 0.76F, 3.23F, 0.76F, InteractionHand.MAIN_HAND, biped.toolR, null),
+                new AttackAnimation.Phase(0.76F, 1.36F, 1.53F, 3.23F,3.23F, InteractionHand.MAIN_HAND, biped.toolR, null)
         );
 
 
-        YULLIAN_COMBOC1 = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_comboc1", biped);
+        YULLIAN_COMBOC1 = new BasicAttackAnimation(0.1F, 0.4F, 0.5F, 0.73F,  null, biped.toolR, "biped/yullian/yullian_comboc1", biped);
         YULLIAN_COMBOC2 = new BasicAttackAnimation(0.1F, "biped/yullian/yullian_comboc2", biped,
-                new AttackAnimation.Phase(0F, 0.6F, 0.7F, 1F, 1F, InteractionHand.MAIN_HAND, biped.toolR, null),
-                new AttackAnimation.Phase(0F, 0.9F, 1.03F, 1.01F,1F, InteractionHand.MAIN_HAND, biped.toolR, null)
+                new AttackAnimation.Phase(0F, 0.6F, 0.7F, 1F, 0.7F, InteractionHand.MAIN_HAND, biped.toolR, null),
+                new AttackAnimation.Phase(0.7F, 0.9F, 1.03F, 233.0F,233.0F, InteractionHand.MAIN_HAND, biped.toolR, null)
         );
-        YULLIAN_DODGEATTACK = new AttackAnimation(0.1F, 0.4F, 1.15F, 0.5F, 0.73F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_dodgeattack", biped);
-        YULLIAN_JUMP_HEAVYATTACK = new AttackAnimation(0.1F, 0.967F, 1.15F, 1.06F, 4.267F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jump_heavyattack", biped);
-        YULLIAN_JUMPPATTACK = new AttackAnimation(0.1F, 0.67F, 1.15F, 0.76F, 2.83F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_jumpattack", biped);
-        YULLIAN_DASHAHATTCK= new AttackAnimation(0.1F, 0.67F, 1.15F, 0.76F, 2.83F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_dashattack", biped);
+        YULLIAN_DODGEATTACK = new BasicAttackAnimation(0.1F, 0.4F,  0.5F, 0.73F, null, biped.toolR, "biped/yullian/yullian_dodgeattack", biped);
+        YULLIAN_JUMP_HEAVYATTACK = new BasicAttackAnimation(0.1F, 0.967F, 1.06F, 4.267F, null, biped.toolR,"biped/yullian/yullian_jump_heavyattack", biped);
+        YULLIAN_JUMPPATTACK = new BasicAttackAnimation(0.1F, 0.67F,  0.76F, 2.83F,  null, biped.toolR,"biped/yullian/yullian_jumpattack", biped);
+        YULLIAN_DASHAHATTCK= new BasicAttackAnimation(0.1F, 0.67F,  0.76F, 2.83F, null, biped.toolR,"biped/yullian/yullian_dashattack", biped);
 
-        YULLIAN_SPECIALATTACK1 = new AttackAnimation(0.1F, 1.43F, 1.15F, 1.8F, 4.2F,InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack1", biped);
-        YULLIAN_SPECIALATTACK2 = new AttackAnimation(0.1F, 1.23F, 1.15F, 1.56F, 4.167F, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/yullian/yullian_specialattack2", biped);
-        YULLIAN_SPECIALATTACK3 = new AttackAnimation(0.1F, 1.567F, 1.15F, 2.0F, 3.8F, InteractionHand.MAIN_HAND, null, biped.toolR,"biped/yullian/yullian_specialattack3", biped);
+        YULLIAN_SPECIALATTACK1 = new BasicAttackAnimation(0.1F, 1.43F, 1.8F, 4.2F, null, biped.toolR, "biped/yullian/yullian_specialattack1", biped);
+        YULLIAN_SPECIALATTACK2 = new BasicAttackAnimation(0.1F, 1.23F,  1.56F, 4.167F,  null, biped.toolR, "biped/yullian/yullian_specialattack2", biped);
+        YULLIAN_SPECIALATTACK3 = new BasicAttackAnimation(0.1F, 1.567F,  2.0F, 3.8F,  null, biped.toolR,"biped/yullian/yullian_specialattack3", biped);
         YULLIAN_WALK = new StaticAnimation(true, "biped/yullian/yullian_walk", biped);
         YULLIAN_RUN = new StaticAnimation(true, "biped/yullian/yullian_run", biped);
         YULLIAN_IDLE = new StaticAnimation(true, "biped/yullian/yullian_idle", biped);
 
-        ///indestructible @s play "theforcelawtweaks:biped/skill/squareoff_blockattack" 0 0
+        ///indestructible @s play "theforcelawtweaks:biped/devil/cow_devil_attack" 0 0
         HANDHALFSWORD_AUTO1 = new BasicAttackAnimation(0.1F, 0.46F, 0.56F, 0.58F, null, biped.toolR, "biped/combat/handhalfsword_auto1", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.multiplier(1.1F));
+
         HANDHALFSWORD_AUTO2 = new BasicAttackAnimation(0.05F, 0.4F, 0.6F, 0.67F, null, biped.toolR, "biped/combat/handhalfsword_auto2", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F);
         HANDHALFSWORD_AUTO3 = new BasicAttackAnimation(0.05F, 0.4F, 0.6F, 0.67F, null, biped.toolR, "biped/combat/handhalfsword_auto3", biped)
@@ -403,11 +443,11 @@ public class TFLAnimations {
                 new AttackAnimation.Phase(0F, 0.7F, 0.75F, 0.8F, 1.13F, Float.MAX_VALUE, biped.toolR, null))
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.1F))
                 .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, Animations.ReusableSources.CONSTANT_ONE)
-                .addEvents(AnimationEvent.TimeStampedEvent.create(0.95F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(0.0F, -0.24F, -2.0F), Armatures.BIPED.rootJoint, 1.1D, 0.55F));
+                .addEvents(AnimationEvent.TimeStampedEvent.create(0.95F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(0.0F, -0.24F, -2.0F), yesman.epicfight.gameasset.Armatures.BIPED.rootJoint, 1.1D, 0.55F));
         COLOSSALSWORD_AUTO2 = new BasicAttackAnimation(0.1F, "biped/combat/colossalsword/greatsword2", biped,
                 new AttackAnimation.Phase(0F, 0.76F, 0.70F, 1.23F, 1.5F, Float.MAX_VALUE, biped.toolR, null))
                 .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, Animations.ReusableSources.CONSTANT_ONE)
-                .addEvents(AnimationEvent.TimeStampedEvent.create(1.25F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(0.0F, -0.24F, -2.0F), Armatures.BIPED.toolR, 1.1D, 0.55F));
+                .addEvents(AnimationEvent.TimeStampedEvent.create(1.25F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(0.0F, -0.24F, -2.0F), yesman.epicfight.gameasset.Armatures.BIPED.toolR, 1.1D, 0.55F));
         COLOSSALSWORD_AUTO3 = new BasicAttackAnimation(0.1F, "biped/combat/colossalsword/greatsword3", biped,
                 new AttackAnimation.Phase(0F, 0.67F, 0.70F, 0.75F, 1F, Float.MAX_VALUE, biped.toolR, null))
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.25F))
@@ -416,11 +456,11 @@ public class TFLAnimations {
                 new AttackAnimation.Phase(0F, 0.63F, 0.75F, 1.83F, 1.3F, Float.MAX_VALUE, biped.toolR, null))
                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER, ValueModifier.adder(0.5F))
                 .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, Animations.ReusableSources.CONSTANT_ONE)
-                .addEvents(AnimationEvent.TimeStampedEvent.create(0.95F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(0.0F, -0.24F, -2.0F), Armatures.BIPED.rootJoint, 1.1D, 0.55F));
+                .addEvents(AnimationEvent.TimeStampedEvent.create(0.95F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(0.0F, -0.24F, -2.0F), yesman.epicfight.gameasset.Armatures.BIPED.rootJoint, 1.1D, 0.55F));
         COLOSSALSWORD_AUTO5 = new BasicAttackAnimation(0.1F, "biped/combat/colossalsword/greatsword5", biped,
                 new AttackAnimation.Phase(0F, 0.7F, 0.75F, 1.13F, 1.43F, Float.MAX_VALUE, biped.toolR, null))
                 .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, Animations.ReusableSources.CONSTANT_ONE)
-                .addEvents(AnimationEvent.TimeStampedEvent.create(1.25F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(0.0F, -0.24F, -2.0F), Armatures.BIPED.toolR, 1.1D, 0.55F));
+                .addEvents(AnimationEvent.TimeStampedEvent.create(1.25F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(0.0F, -0.24F, -2.0F), yesman.epicfight.gameasset.Armatures.BIPED.toolR, 1.1D, 0.55F));
         EXECUTE = new BasicAttackWinAnimation(0.0F, 0.0F, 2.65F, 1.3F, 1.75F, 0.7F, 2.65F, 0.0F, 0.0F, "biped/hit/execute", biped,
                 new AttackAnimation.Phase(0.0F, 0.75F, 0.51F, 0.95F, 3F, biped.toolR, null)
                         .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.multiplier(0.1F))
@@ -454,7 +494,7 @@ public class TFLAnimations {
 //                        livingEntityPatch.playAnimationSynchronized(HANDHALFSWORD_DODGE_ATTACK1, 0.0F);ff
 //                    }
                 }), AnimationEvent.Side.CLIENT))
-                .addEvents(AnimationEvent.TimeStampedEvent.create(1.5F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(3.0F, 0.0F, 1.3F), Armatures.BIPED.rootJoint, 1.1D, 0.01F))
+                .addEvents(AnimationEvent.TimeStampedEvent.create(1.5F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(3.0F, 0.0F, 1.3F), yesman.epicfight.gameasset.Armatures.BIPED.rootJoint, 1.1D, 0.01F))
         ;
         COLOSSALSWORD_HEAVY_ATTACK2 = new AttackAnimation(0.1F, 1, 1, 1.4F, 2, InteractionHand.MAIN_HAND, null, biped.toolR, "biped/combat/colossalsword/colossalsword_heavy2", biped)
                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.5F)
@@ -463,7 +503,7 @@ public class TFLAnimations {
 //                        livingEntityPatch.playAnimationSynchronized(HANDHALFSWORD_DODGE_ATTACK2, 0.0F);
 //                    }
                 }), AnimationEvent.Side.CLIENT))
-                .addEvents(AnimationEvent.TimeStampedEvent.create(1.43F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(3.0F, 0.0F, 1.3F), Armatures.BIPED.rootJoint, 1.1D, 0.01F));
+                .addEvents(AnimationEvent.TimeStampedEvent.create(1.43F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT).params(new Vec3f(3.0F, 0.0F, 1.3F), yesman.epicfight.gameasset.Armatures.BIPED.rootJoint, 1.1D, 0.01F));
 
     }
 }

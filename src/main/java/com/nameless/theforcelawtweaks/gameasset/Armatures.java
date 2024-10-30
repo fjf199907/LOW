@@ -9,8 +9,10 @@ import static yesman.epicfight.gameasset.Armatures.registerEntityTypeArmature;
 
 public class Armatures {
     public static CowDevilArmature cowDevilArmature;
+
     public static void build(ArmatureBuild event) {
         cowDevilArmature = event.get(TheForceLawTweaks.MODID, "entity/cow_devil", CowDevilArmature::new);
         registerEntityTypeArmature(BossEntities.COWDEVIL.get(), cowDevilArmature);
+
     }
 }
