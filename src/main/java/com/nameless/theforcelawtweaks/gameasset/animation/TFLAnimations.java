@@ -129,6 +129,7 @@ public class TFLAnimations {
 
     public static StaticAnimation CWO_DEVIL_IDLE;
     public static StaticAnimation CWO_DEVIL_ATTACK;
+    public static StaticAnimation YULLIAN_COMBOA4;
 
 
     public static AnimationEvent.AnimationEventConsumer PURSUIT_EVENT = ((livingEntityPatch, staticAnimation, objects) -> {
@@ -156,17 +157,16 @@ public class TFLAnimations {
 
 
         //one hand更新s
-        SKILL_ROLL_RIGHT = new DodgeAnimation(0.067F,0.35F,"biped/skill/roll_right",0.6F, 1.65F,biped);
-        SKILL_ROLL_AFTER = new DodgeAnimation(0.067F,0.35F,"biped/skill/roll_after",0.6F, 1.65F,biped);
-        SKILL_ROLL_FRONT = new DodgeAnimation(0.067F,0.35F,"biped/skill/roll_front",0.6F, 1.65F,biped);
-        SKILL_ROLL_LEFT = new DodgeAnimation(0.067F,0.35F,"biped/skill/roll_left",0.6F, 1.65F,biped);
+        SKILL_ROLL_RIGHT = new DodgeAnimation(0.067F,1F,"biped/skill/roll_right",0.6F, 1.65F,biped);
+        SKILL_ROLL_AFTER = new DodgeAnimation(0.067F,1F,"biped/skill/roll_after",0.6F, 1.65F,biped);//after
+        SKILL_ROLL_FRONT = new DodgeAnimation(0.067F,1F,"biped/skill/roll_front",0.6F, 1.65F,biped);
+        SKILL_ROLL_LEFT = new DodgeAnimation(0.067F,1F,"biped/skill/roll_left",0.6F, 1.65F,biped);
 
-        SKILL_DODGE_RIGHT = new DodgeAnimation(0.067F,0.35F,"biped/skill/slidingstep_right",0.6F, 1.65F,biped);
-        SKILL_DODGE_AFTER = new DodgeAnimation(0.067F,0.35F,"biped/skill/slidingstep_after",0.6F, 1.65F,biped);
-        SKILL_DODGE_FRONT = new DodgeAnimation(0.067F,0.35F,"biped/skill/slidingstep_front",0.6F, 1.65F,biped);
-        SKILL_DODGE_LEFT = new DodgeAnimation(0.067F,0.35F,"biped/skill/slidingstep_left",0.6F, 1.65F,biped);
-
-
+        SKILL_DODGE_RIGHT = new DodgeAnimation(0.167F,0.667F,"biped/skill/slidingstep_right",0.6F, 1.65F,biped);//右
+        SKILL_DODGE_AFTER = new DodgeAnimation(0.167F,0.667F,"biped/skill/slidingstep_after",0.6F, 1.65F,biped);
+        SKILL_DODGE_FRONT = new DodgeAnimation(0.167F,0.667F,"biped/skill/slidingstep_front",0.6F, 1.65F,biped);//前
+        SKILL_DODGE_LEFT = new DodgeAnimation(0.167F,0.667F,"biped/skill/slidingstep_left",0.6F, 1.65F,biped);//左
+        ///indestructible @s play "theforcelawtweaks:biped/skill/slidingstep_after1" 0 0
 
            //yullian
         YULLIAN_COMBOA1 = new BasicAttackAnimation(0.1F, 0.8F,  0.93F, 1F, null, biped.toolR, "biped/yullian/yullian_comboa1", biped);
