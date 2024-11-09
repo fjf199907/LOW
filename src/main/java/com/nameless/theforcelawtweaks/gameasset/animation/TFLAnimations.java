@@ -150,28 +150,22 @@ public class TFLAnimations {
         CowDevilArmature bipex=com.nameless.theforcelawtweaks.gameasset.Armatures.cowDevilArmature;
 
                 //hand half sword
-        CWO_DEVIL_ATTACK = new BasicAttackAnimation(0F, 2.36F,  2.56F, 4.86F, null,bipex.head, "biped/devil/cow_devil_attack", bipex);
-        CWO_DEVIL_IDLE = new BasicAttackAnimation(0F, 2.36F,  2.56F, 4.86F, null, bipex.head, "biped/devil/cow_devil_idle", bipex);
+        CWO_DEVIL_ATTACK = new AttackAnimation(0F, 2.36F,  2.56F, 4.86F,1F,  null,bipex.toolR, "biped/devil/cow_devil_attack", bipex);
+        CWO_DEVIL_IDLE = new AttackAnimation(0F, 2.36F,  2.56F, 4.86F,1F,  null, bipex.toolR, "biped/devil/cow_devil_idle", bipex);
 
 
 
         //one hand更新s
-        SKILL_ROLL_RIGHT = new BasicAttackAnimation(0.067F, 0.067F,  0.5F, 1F,  null, biped.toolR, "biped/skill/roll_right", biped)
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
-        SKILL_ROLL_AFTER = new BasicAttackAnimation(0.067F, 0.067F,  0.5F, 1F, null, biped.toolR, "biped/skill/roll_after", biped)
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
-        SKILL_ROLL_FRONT = new BasicAttackAnimation(0.067F, 0.067F,  0.5F, 1F, null, biped.toolR, "biped/skill/roll_front", biped)
-              .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
-        SKILL_ROLL_LEFT = new BasicAttackAnimation(0.067F, 0.067F,  0.5F, 1F,  null, biped.toolR, "biped/skill/roll_left", biped)
-                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
+        SKILL_ROLL_RIGHT = new DodgeAnimation(0.067F,0.35F,"biped/skill/roll_right",0.6F, 1.65F,biped);
+        SKILL_ROLL_AFTER = new DodgeAnimation(0.067F,0.35F,"biped/skill/roll_after",0.6F, 1.65F,biped);
+        SKILL_ROLL_FRONT = new DodgeAnimation(0.067F,0.35F,"biped/skill/roll_front",0.6F, 1.65F,biped);
+        SKILL_ROLL_LEFT = new DodgeAnimation(0.067F,0.35F,"biped/skill/roll_left",0.6F, 1.65F,biped);
 
+        SKILL_DODGE_RIGHT = new DodgeAnimation(0.067F,0.35F,"biped/skill/slidingstep_right",0.6F, 1.65F,biped);
+        SKILL_DODGE_AFTER = new DodgeAnimation(0.067F,0.35F,"biped/skill/slidingstep_after",0.6F, 1.65F,biped);
+        SKILL_DODGE_FRONT = new DodgeAnimation(0.067F,0.35F,"biped/skill/slidingstep_front",0.6F, 1.65F,biped);
+        SKILL_DODGE_LEFT = new DodgeAnimation(0.067F,0.35F,"biped/skill/slidingstep_left",0.6F, 1.65F,biped);
 
-
-
-        SKILL_DODGE_RIGHT = new BasicAttackAnimation(0.067F, 0.067F, 0.667F, 1F,  null, biped.toolR, "biped/skill/slidingstep_right", biped).addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
-        SKILL_DODGE_AFTER = new BasicAttackAnimation(0.067F, 0.067F, 0.667F, 1F, null, biped.toolR, "biped/skill/slidingstep_after", biped).addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
-        SKILL_DODGE_FRONT = new BasicAttackAnimation(0.067F, 0.067F, 0.667F,  1F, null, biped.toolR, "biped/skill/slidingstep_front", biped).addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
-        SKILL_DODGE_LEFT = new BasicAttackAnimation(0.067F, 0.067F, 0.667F,  1F, null, biped.toolR, "biped/skill/slidingstep_left", biped).addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v, v1) -> 1.5F));
 
 
            //yullian
