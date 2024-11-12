@@ -21,7 +21,7 @@ import yesman.epicfight.api.client.forgeevent.PatchedRenderersEvent;
 import yesman.epicfight.api.forgeevent.EntityPatchRegistryEvent;
 
 @Mod(TheForceLawTweaks.MODID)
-public class TheForceLawTweaks
+public class TheForceLawTweaks 
 {
     public static final String MODID = "theforcelawtweaks";
     public static final Logger TFLLOGGER = LogUtils.getLogger();

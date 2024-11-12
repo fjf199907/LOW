@@ -1,9 +1,11 @@
 package com.nameless.theforcelawtweaks.world.capabilities.entity;
 
+import com.nameless.theforcelawtweaks.gameasset.animation.TFLAnimations;
 import com.nameless.theforcelawtweaks.world.entity.CowDevilEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import yesman.epicfight.api.animation.LivingMotions;
+import yesman.epicfight.api.animation.property.AnimationEvent;
 import yesman.epicfight.api.animation.types.StaticAnimation;
 import yesman.epicfight.api.client.animation.ClientAnimator;
 import yesman.epicfight.api.utils.math.OpenMatrix4f;
@@ -11,7 +13,7 @@ import yesman.epicfight.gameasset.Animations;
 import yesman.epicfight.world.capabilities.entitypatch.Faction;
 import yesman.epicfight.world.capabilities.entitypatch.MobPatch;
 import yesman.epicfight.world.damagesource.StunType;
-
+import com.nameless.theforcelawtweaks.gameasset.Armatures;
 public class CowDevilPatch extends MobPatch<CowDevilEntity> {
 	public CowDevilPatch() {
 		super(Faction.NEUTRAL);
@@ -20,8 +22,8 @@ public class CowDevilPatch extends MobPatch<CowDevilEntity> {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void initAnimator(ClientAnimator clientAnimator) {
-		clientAnimator.addLivingAnimation(LivingMotions.IDLE, Animations.BIPED_IDLE);
-		clientAnimator.addLivingAnimation(LivingMotions.WALK, Animations.BIPED_WALK);
+		clientAnimator.addLivingAnimation(LivingMotions.IDLE, TFLAnimations.CWO_DEVIL_IDLE);
+		clientAnimator.addLivingAnimation(LivingMotions.WALK,  TFLAnimations.CWO_DEVIL_IDLE);
 		clientAnimator.setCurrentMotionsAsDefault();
 	}
 
