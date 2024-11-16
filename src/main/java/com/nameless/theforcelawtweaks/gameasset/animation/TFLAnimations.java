@@ -259,7 +259,7 @@ public class TFLAnimations {
                                 .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
 
                 /// indestructible @s play "theforcelawtweaks:biped/skill/slidingstep_right" 1 0
-                /// 0修gx
+                /// 0修
 
                 // yullian
                 YULLIAN_COMBOA1 = new BasicAttackAnimation(0.1F, 0.8F, 0.93F, 1F, null, biped.toolR,
