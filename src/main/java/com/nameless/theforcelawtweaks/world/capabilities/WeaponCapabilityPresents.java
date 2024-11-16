@@ -101,8 +101,15 @@ public class WeaponCapabilityPresents {
                                         TFLAnimations.COLOSSALSWORD_AUTO1,
                                         TFLAnimations.COLOSSALSWORD_AUTO2,
                                         TFLAnimations.COLOSSALSWORD_AUTO3,
+
                                         TFLAnimations.COLOSSALSWORD_AUTO4,
                                         TFLAnimations.COLOSSALSWORD_AUTO5,
+                                        TFLAnimations.COLOSSALSWORD_AUTO3,
+                                TFLAnimations.COLOSSALSWORD_AUTO4,
+                                TFLAnimations.COLOSSALSWORD_AUTO5,
+                                TFLAnimations.COLOSSALSWORD_AUTO3,
+
+
                                         Animations.GREATSWORD_DASH,
                                         Animations.GREATSWORD_AIR_SLASH)
                         .innateSkill(CapabilityItem.Styles.TWO_HAND,
@@ -163,21 +170,25 @@ public class WeaponCapabilityPresents {
                                         TFLAnimations.UCHIGATANA_AUTO3,
                                         TFLAnimations.UCHIGATANA_AUTO4,
 
-                                        TFLAnimations.UCHIGATANA_AUTO5,
-                                        TFLAnimations.UCHIGATANA_AUTO2,
-                                        TFLAnimations.UCHIGATANA_AUTO3,
-                                        TFLAnimations.UCHIGATANA_AUTO4,
-
-                                        TFLAnimations.UCHIGATANA_AUTO5,
-                                        TFLAnimations.UCHIGATANA_AUTO2,
-                                        TFLAnimations.UCHIGATANA_AUTO3,
-                                        TFLAnimations.UCHIGATANA_AUTO4,
-
                                         TFLAnimations.UCHIGATANA_DASH,
                                         Animations.GREATSWORD_AIR_SLASH)
-                        .newStyleCombo(CapabilityItem.Styles.TWO_HAND, TFLAnimations.DUAL_TACHI_AUTO1,
-                                        TFLAnimations.DUAL_TACHI_AUTO2, TFLAnimations.DUAL_TACHI_AUTO3,
-                                        TFLAnimations.DUAL_TACHI_AUTO4, Animations.DAGGER_DUAL_DASH,
+                        .newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                                TFLAnimations.DUAL_TACHI_AUTO1,
+                                TFLAnimations.DUAL_TACHI_AUTO2,
+                                TFLAnimations.DUAL_TACHI_AUTO3,
+                                TFLAnimations.DUAL_TACHI_AUTO4,
+
+                                TFLAnimations.DUAL_TACHI_AUTO5,
+                                TFLAnimations.DUAL_TACHI_AUTO2,
+                                TFLAnimations.DUAL_TACHI_AUTO3,
+                                TFLAnimations.DUAL_TACHI_AUTO4,
+
+                                TFLAnimations.DUAL_TACHI_AUTO5,
+                                TFLAnimations.DUAL_TACHI_AUTO2,
+                                TFLAnimations.DUAL_TACHI_AUTO3,
+                                TFLAnimations.DUAL_TACHI_AUTO4,
+
+                                Animations.DAGGER_DUAL_DASH,
                                         Animations.SWORD_DUAL_AIR_SLASH)
                         .innateSkill(CapabilityItem.Styles.ONE_HAND,itemStack -> LOWSkills.DUAL_TACHI_SWORD_HEAVY_ATTACK)
                         .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.IDLE,

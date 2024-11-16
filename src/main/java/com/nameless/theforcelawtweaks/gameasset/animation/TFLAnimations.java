@@ -14,6 +14,7 @@ import yesman.epicfight.api.animation.property.AnimationProperty;
 import yesman.epicfight.api.animation.property.MoveCoordFunctions;
 import yesman.epicfight.api.animation.types.*;
 import yesman.epicfight.api.forgeevent.AnimationRegistryEvent;
+import yesman.epicfight.api.utils.AttackResult;
 import yesman.epicfight.api.utils.TimePairList;
 import yesman.epicfight.api.utils.math.ValueModifier;
 import yesman.epicfight.api.utils.math.Vec3f;
@@ -34,6 +35,8 @@ import yesman.epicfight.world.entity.eventlistener.ComboCounterHandleEvent;
 import com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch.CowDevilArmature;
 import java.util.List;
 import java.util.Set;
+
+import static yesman.epicfight.api.animation.types.DodgeAnimation.DODGEABLE_SOURCE_VALIDATOR;
 
 public class TFLAnimations {
         public static StaticAnimation HANDHALFSWORD_AUTO1;
@@ -143,6 +146,7 @@ public class TFLAnimations {
         public static StaticAnimation DUAL_TACHI_AUTO4;
         public static StaticAnimation DUAL_TACHI_SKILL1;
         public static StaticAnimation DUAL_TACHI_SKILL2;
+        public static StaticAnimation DUAL_TACHI_AUTO5;
         public static StaticAnimation TACHI_IDLE;
         public static StaticAnimation TACHI_WALK;
         public static StaticAnimation TACHI_RUN;
@@ -165,86 +169,105 @@ public class TFLAnimations {
         public static void build() {
                 HumanoidArmature biped = Armatures.BIPED;
                 CowDevilArmature bipex = com.nameless.theforcelawtweaks.gameasset.Armatures.cowDevilArmature;
-    ;
+                ;
+                /// effect give @s minecraft:resistance infinite 4 true 无敌
                 CWO_DEVIL_IDLE = new StaticAnimation(true, "biped/devil/cow_devil_idle", bipex);
 
                 // one hand更新
-
-                SKILL_ROLL_RIGHT = new DodgeAnimation(0.07F, 1F, "biped/skill/roll_right", 0.6F, 1.65F, biped)
-                        .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
-                        .newTimePair(0.3F, Float.MAX_VALUE)
-                        .addState(EntityState.CAN_SKILL_EXECUTION, true)
-                        .newTimePair(0.0F, 1.0F)
-                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
-                        .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
-                SKILL_ROLL_LEFT = new DodgeAnimation(0.07F, 1F, "biped/skill/roll_left", 0.6F, 1.65F, biped)
+                SKILL_ROLL_FRONT = new DodgeAnimation(0.08F, 0.6F, "biped/skill/roll_front", 0.6F, 1.65F, biped)
                                 .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
                                 .newTimePair(0.667F, Float.MAX_VALUE)
                                 .addState(EntityState.CAN_SKILL_EXECUTION, true)
+                                .newTimePair(0F, 0.6F)
+                                .addStateRemoveOld(EntityState.ATTACK_RESULT, DODGEABLE_SOURCE_VALIDATOR)
                                 .newTimePair(0.0F, 1.0F)
-                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
+                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                                                ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.2F))
                                 .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
-                SKILL_ROLL_AFTER = new DodgeAnimation(0.07F, 1F, "biped/skill/roll_after", 0.6F, 1.65F, biped)
+                SKILL_ROLL_AFTER = new DodgeAnimation(0.08F, 0.6F, "biped/skill/roll_after", 0.6F, 1.65F, biped)
                                 .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
+                                .newTimePair(0F, 0.6F)
+                                .addStateRemoveOld(EntityState.ATTACK_RESULT, DODGEABLE_SOURCE_VALIDATOR)
                                 .newTimePair(0.667F, Float.MAX_VALUE)
                                 .addState(EntityState.CAN_SKILL_EXECUTION, true)
                                 .newTimePair(0.0F, 1.0F)
-                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
+                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                                                ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.2F))
                                 .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
-                SKILL_ROLL_FRONT = new DodgeAnimation(0.08F, 1F, "biped/skill/roll_front", 0.6F, 1.65F, biped)
+                SKILL_ROLL_LEFT = new DodgeAnimation(0.08F, 0.6F, "biped/skill/roll_left", 0.6F, 1.65F, biped)
                                 .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
+                                .newTimePair(0F, 0.6F)
+                                .addStateRemoveOld(EntityState.ATTACK_RESULT, DODGEABLE_SOURCE_VALIDATOR)
                                 .newTimePair(0.667F, Float.MAX_VALUE)
                                 .addState(EntityState.CAN_SKILL_EXECUTION, true)
                                 .newTimePair(0.0F, 1.0F)
-                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
+                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                                                ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.2F))
                                 .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
-
-
-
-
-                SKILL_DODGE_RIGHT = new DodgeAnimation(0.1F, 0.5f, "biped/skill/slidingstep_right", 0.6F, 1.65F, biped)
+                SKILL_ROLL_RIGHT = new DodgeAnimation(0.08F, 0.6F, "biped/skill/roll_right", 0.6F, 1.65F, biped)
                                 .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
-                                .newTimePair(0.0F, 0.667F)
+                                .newTimePair(0F, 0.6F)
+                                .addStateRemoveOld(EntityState.ATTACK_RESULT, DODGEABLE_SOURCE_VALIDATOR)
+                                .newTimePair(0.3F, Float.MAX_VALUE)
                                 .addState(EntityState.CAN_SKILL_EXECUTION, true)
                                 .newTimePair(0.0F, 1.0F)
-                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
+                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                                                ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.2F))
                                 .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
-                SKILL_DODGE_AFTER = new DodgeAnimation(0.1F, 0.9f, "biped/skill/slidingstep_after", 0.6F, 1.65F,
-                                biped)
-                                .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
-                                .newTimePair(0.0F, 0.667F)
-                                .addState(EntityState.CAN_SKILL_EXECUTION, true)
-                                .newTimePair(0.0F, 1.0F)
-                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
-                                .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
+
                 SKILL_DODGE_FRONT = new DodgeAnimation(0.1F, 0.5f, "biped/skill/slidingstep_front", 0.6F, 1.65F,
                                 biped)
                                 .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
+                                .newTimePair(0F, 0.3F)
+                                .addStateRemoveOld(EntityState.ATTACK_RESULT, DODGEABLE_SOURCE_VALIDATOR)
                                 .newTimePair(0.0F, 0.667F)
                                 .addState(EntityState.CAN_SKILL_EXECUTION, true)
                                 .newTimePair(0.0F, 1.0F)
-                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
+                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                                                ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
                                 .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
-
+                SKILL_DODGE_AFTER = new DodgeAnimation(0.1F, 0.5f, "biped/skill/slidingstep_after", 0.6F, 1.65F,
+                                biped)
+                                .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
+                                .newTimePair(0F, 0.3F)
+                                .addStateRemoveOld(EntityState.ATTACK_RESULT, DODGEABLE_SOURCE_VALIDATOR)
+                                .newTimePair(0.0F, 0.667F)
+                                .addState(EntityState.CAN_SKILL_EXECUTION, true)
+                                .newTimePair(0.0F, 1.0F)
+                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                                                ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
+                                .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
                 SKILL_DODGE_LEFT = new DodgeAnimation(0.1F, 0.5f, "biped/skill/slidingstep_left", 0.6F, 1.65F, biped)
                                 .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
+                                .newTimePair(0F, 0.3F)
+                                .addStateRemoveOld(EntityState.ATTACK_RESULT, DODGEABLE_SOURCE_VALIDATOR)
                                 .newTimePair(0.0F, 0.667F)
                                 .addState(EntityState.CAN_SKILL_EXECUTION, true)
                                 .newTimePair(0.0F, 1.0F)
-                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER, ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
+                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                                                ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
+                                .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
+                SKILL_DODGE_RIGHT = new DodgeAnimation(0.1F, 0.5f, "biped/skill/slidingstep_right", 0.6F, 1.65F, biped)
+                                .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
+                                .newTimePair(0F, 0.3F)
+                                .addStateRemoveOld(EntityState.ATTACK_RESULT, DODGEABLE_SOURCE_VALIDATOR)
+                                .newTimePair(0.0F, 0.667F)
+                                .addState(EntityState.CAN_SKILL_EXECUTION, true)
+                                .newTimePair(0.0F, 1.0F)
+                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                                                ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
                                 .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
 
                 /// indestructible @s play "theforcelawtweaks:biped/skill/slidingstep_right" 1 0
-                /// 0修
+                /// 0修gx
 
                 // yullian
                 YULLIAN_COMBOA1 = new BasicAttackAnimation(0.1F, 0.8F, 0.93F, 1F, null, biped.toolR,
                                 "biped/yullian/yullian_comboa1", biped);
-                YULLIAN_COMBOA2 = new BasicAttackAnimation(0.1F, 0.7F,0.8F , 0.85F, null, biped.toolR,
+                YULLIAN_COMBOA2 = new BasicAttackAnimation(0.1F, 0.7F, 0.8F, 0.85F, null, biped.toolR,
                                 "biped/yullian/yullian_comboa2", biped);
                 YULLIAN_COMBOA3 = new BasicAttackAnimation(0.1F, 0.467F, 0.6F, 2.43F, null, biped.toolR,
                                 "biped/yullian/yullian_comboa3", biped);
-
                 YULLIAN_COMBOB1 = new BasicAttackAnimation(0.1F, "biped/yullian/yullian_combob1", biped,
                                 new AttackAnimation.Phase(0F, 0.63F, 0.76F, 3.23F, 0.76F, InteractionHand.MAIN_HAND,
                                                 biped.toolR, null),
@@ -254,24 +277,17 @@ public class TFLAnimations {
                 YULLIAN_COMBOC1 = new BasicAttackAnimation(0.1F, 0.4F, 0.5F, 0.73F, null, biped.toolR,
                                 "biped/yullian/yullian_comboc1", biped);
 
+                YULLIAN_COMBOC2 = new BasicAttackAnimation(0.05F, "biped/yullian/yullian_comboc2", biped,
+                                new AttackAnimation.Phase(0F, 0.5F, 0.9F, 0F, 0.9F, InteractionHand.MAIN_HAND,
+                                                biped.toolR, null),
+                                new AttackAnimation.Phase(0.9F, 0.9F, 1.1F, 1F, 233F, InteractionHand.MAIN_HAND,
+                                                biped.toolR, null));
 
-            YULLIAN_COMBOC2 = new BasicAttackAnimation(0.05F, "biped/yullian/yullian_comboc2",
-                    biped,
-                    new AttackAnimation.Phase(0F, 0.6F, 0.6F, 0.7F, 0.7F, Float.MAX_VALUE, false,
-                            InteractionHand.MAIN_HAND,
-                            List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))),
-                    new AttackAnimation.Phase(0F, 0.9F, 0.9F, 1.03F, 233F, Float.MAX_VALUE, false,
-                            InteractionHand.MAIN_HAND,
-                            List.of(Pair.of(biped.toolL, null), Pair.of(biped.toolL, null))))
-                   ;
-
-                    YULLIAN_DODGEATTACK = new BasicAttackAnimation(0.1F, 0.26F, 0.83F, 2.667F, null, biped.toolR,
+                YULLIAN_DODGEATTACK = new BasicAttackAnimation(0.1F, 0.26F, 0.83F, 2.667F, null, biped.toolR,
                                 "biped/yullian/yullian_dodgeattack", biped);
 
                 YULLIAN_JUMP_HEAVYATTACK = new BasicAttackAnimation(0.1F, 0.967F, 1.06F, 4.267F, null, biped.toolR,
                                 "biped/yullian/yullian_jump_heavyattack", biped);
-
-
 
                 YULLIAN_JUMPPATTACK = new BasicAttackAnimation(0.1F, 0.67F, 0.76F, 2.83F, null, biped.toolR,
                                 "biped/yullian/yullian_jumpattack", biped);
@@ -825,7 +841,7 @@ public class TFLAnimations {
                                 .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.HOLD)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,
                                                 ValueModifier.setter(1.5F));
-                UCHIGATANA_AUTO5 = new BasicAttackAnimation(0.05F, 0.567F, 1F, 1.5F, null, biped.toolR,
+                UCHIGATANA_AUTO5 = new BasicAttackAnimation(0.05F, 0.567F, 0.667F, 1F, null, biped.toolR,
                                 "biped/combat/dual_tachi/uchigatana_auto5", biped)
                                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.LONG);
@@ -834,23 +850,23 @@ public class TFLAnimations {
                                 .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
                                 .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
                                                 Animations.ReusableSources.CONSTANT_ONE);
-                DUAL_TACHI_AUTO1 = new BasicAttackAnimation(0.1F, "biped/combat/dual_tachi/dual_tachi_auto1", biped,
-                                new AttackAnimation.Phase(0.0F, 0.367F, 0.41F, 0.567F, 1.3F, InteractionHand.OFF_HAND,
+                DUAL_TACHI_AUTO1 = new BasicAttackAnimation(0.05F, "biped/combat/dual_tachi/dual_tachi_auto1", biped,
+                                new AttackAnimation.Phase(0.0F, 0.367F, 0.41F, 1.2F, 1.3F, InteractionHand.OFF_HAND,
                                                 biped.toolL, null),
-                                new AttackAnimation.Phase(0.2F, 0.633F, 0.68F, 0.767F, 1.3F, biped.toolR, null))
+                                new AttackAnimation.Phase(0.2F, 0.633F, 0.68F, 1F, 1.3F, biped.toolR, null))
                                 .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.HOLD)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,
                                                 ValueModifier.setter(1.5F))
                                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.2F);
-                DUAL_TACHI_AUTO2 = new BasicAttackAnimation(0.15F, "biped/combat/dual_tachi/dual_tachi_auto2", biped,
+                DUAL_TACHI_AUTO2 = new BasicAttackAnimation(0.05F, "biped/combat/dual_tachi/dual_tachi_auto2", biped,
                                 new AttackAnimation.Phase(0.0F, 0.5F, 0.63F, 0.667F, 0.667F, InteractionHand.MAIN_HAND,
                                                 biped.toolR, null),
-                                new AttackAnimation.Phase(0.2F, 0.7F, 0.8F, 0.9F, 1.3F, biped.toolL, null))
+                                new AttackAnimation.Phase(0.2F, 0.7F, 0.8F, 1.167F, 0.8F, biped.toolL, null))
                                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.0F)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.HOLD)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,
                                                 ValueModifier.setter(2.5F));
-                DUAL_TACHI_AUTO3 = new BasicAttackAnimation(0.16F, "biped/combat/dual_tachi/dual_tachi_auto3", biped,
+                DUAL_TACHI_AUTO3 = new BasicAttackAnimation(0.05F, "biped/combat/dual_tachi/dual_tachi_auto3", biped,
                                 new AttackAnimation.Phase(0.0F, 0.66F, 0.69F, 0.733F, 1F, Float.MAX_VALUE, false,
                                                 InteractionHand.MAIN_HAND,
                                                 List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))))
@@ -858,13 +874,23 @@ public class TFLAnimations {
                                 .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.HOLD)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,
                                                 ValueModifier.setter(2.5F));
-                DUAL_TACHI_AUTO4 = new BasicAttackAnimation(0.1F, "biped/combat/dual_tachi/dual_tachi_auto4", biped,
-                                new AttackAnimation.Phase(0.0F, 0.633F, 0.69F, 0.8F, 1.567F, 1.15F, false,
+                DUAL_TACHI_AUTO4 = new BasicAttackAnimation(0.05F, "biped/combat/dual_tachi/dual_tachi_auto4", biped,
+                                new AttackAnimation.Phase(0.0F, 0.633F, 0.69F, 0.8F, 1.167F, 1.169F, false,
                                                 InteractionHand.MAIN_HAND,
                                                 List.of(Pair.of(biped.toolR, null), Pair.of(biped.toolL, null))))
                                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.2F)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.LONG);
-                DUAL_TACHI_SKILL1 = new BasicAttackAnimation(0.15F, 0.9F, 1.05F, 2.8667F, null, biped.toolR,
+
+                DUAL_TACHI_AUTO5 = new BasicAttackAnimation(0.05F, "biped/combat/dual_tachi/dual_tachi_auto5", biped,
+                        new AttackAnimation.Phase(0.0F, 0.367F, 0.41F, 0.567F, 1.3F, InteractionHand.OFF_HAND,
+                                biped.toolL, null),
+                        new AttackAnimation.Phase(0.2F, 0.633F, 0.68F, 0.767F, 1.3F, biped.toolR, null))
+                        .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.HOLD)
+                        .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,
+                                ValueModifier.setter(1.5F))
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.2F);
+
+                DUAL_TACHI_SKILL1 = new BasicAttackAnimation(0.5F, 0.967F, 1.1F, 1.3333F, null, biped.toolR,
                                 "biped/combat/dual_tachi/uchigatana_heavy1", biped)
                                 .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 0.9F)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.ARMOR_NEGATION_MODIFIER,
@@ -872,7 +898,7 @@ public class TFLAnimations {
                                 .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
                                                 Animations.ReusableSources.CONSTANT_ONE)
                                 .addState(EntityState.MOVEMENT_LOCKED, true);
-                DUAL_TACHI_SKILL2 = new BasicAttackAnimation(0.25F, 1.2F, 1.35F,  2.7333F, null, biped.toolR,
+                DUAL_TACHI_SKILL2 = new BasicAttackAnimation(0.5F, 1.167F, 1.35F, 1.667F, null, biped.toolR,
                                 "biped/combat/dual_tachi/uchigatana_heavy2", biped)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.FALL)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,
@@ -883,7 +909,8 @@ public class TFLAnimations {
                                                 Animations.ReusableSources.CONSTANT_ONE)
                                 .addState(EntityState.MOVEMENT_LOCKED, true);
 
-                // indestructible @s play "theforcelawtweaks:biped/combat/dual_tachi/uchigatana_heavy1" 0 0
+                // indestructible @s play
+                // "theforcelawtweaks:biped/combat/dual_tachi/uchigatana_heavy1" 0 0
 
         }
 
