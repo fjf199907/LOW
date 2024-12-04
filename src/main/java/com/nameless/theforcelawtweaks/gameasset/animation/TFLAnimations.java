@@ -237,7 +237,7 @@ public class TFLAnimations {
                                 .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
                                 .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(200F))
                                 .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.adder(600F))
-                )
+                         )
                         .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1F)
                         .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1F)
                         .addState(EntityState.MOVEMENT_LOCKED, true)
