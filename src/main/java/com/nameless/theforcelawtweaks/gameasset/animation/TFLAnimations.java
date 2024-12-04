@@ -271,6 +271,10 @@ public class TFLAnimations {
                                 if (livingEntityPatch instanceof ServerPlayerPatch playerPatch) {
                                         // 给自己添加减伤效果，假设我们使用"伤害减免"的效果
                                         playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0)); // 100 ticks（5秒）伤害减免
+                                        playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, -100)); // 禁用玩家的移动
+                                        playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 100, -100)); // 禁用玩家的挖掘速度
+                                        playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 100, 0)); // 可选择增加生命值，增强生存能力
+
                                 }
                         }, AnimationEvent.Side.SERVER));
 
@@ -294,10 +298,11 @@ public class TFLAnimations {
                         .addState(EntityState.TURNING_LOCKED, true)
 
                         //.addState(EntityState.INTERRUPTION_LOCKED, true) // 锁定中断
-                        .addEvents(AnimationEvent.TimePeriodEvent.create(0.5F, 2.167F, (livingEntityPatch, staticAnimation, objects) -> {
+                        .addEvents(AnimationEvent.TimePeriodEvent.create(0.5F, 0.667F, (livingEntityPatch, staticAnimation, objects) -> {
                                 if (livingEntityPatch instanceof ServerPlayerPatch playerPatch) {
                                         // 给自己添加减伤效果，假设我们使用"伤害减免"的效果
-                                        playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0)); // 100 ticks（5秒）伤害减免
+                                         playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0)); // 100 ticks（5秒）伤害减免
+
                                         // 使用 Optional 来提取 StunType
                                         StunType stunType = staticAnimation.getProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE).orElse(StunType.NONE);  // 如果为空，默认使用 StunType.NONE
                                         // 根据 stunType 进行判断
