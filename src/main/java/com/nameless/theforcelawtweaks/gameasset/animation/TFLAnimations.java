@@ -6,6 +6,8 @@ import com.nameless.theforcelawtweaks.client.keymappings.TFLKeyMappings;
 import com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch.CowDevilArmature;
 import com.nameless.theforcelawtweaks.main.TheForceLawTweaks;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.joml.Vector3d;
@@ -31,6 +33,7 @@ import yesman.epicfight.skill.SkillSlots;
 import yesman.epicfight.world.capabilities.entitypatch.player.ServerPlayerPatch;
 import yesman.epicfight.world.damagesource.ExtraDamageInstance;
 import yesman.epicfight.world.damagesource.StunType;
+import yesman.epicfight.world.effect.EpicFightMobEffects;
 import yesman.epicfight.world.entity.eventlistener.ComboCounterHandleEvent;
 import com.nameless.theforcelawtweaks.client.mobs.cowdevil.patch.CowDevilArmature;
 import java.util.List;
@@ -150,6 +153,37 @@ public class TFLAnimations {
         public static StaticAnimation TACHI_IDLE;
         public static StaticAnimation TACHI_WALK;
         public static StaticAnimation TACHI_RUN;
+        public static StaticAnimation DUAL_SHORTKNIFE_AUTO1;
+        public static StaticAnimation DUAL_SHORTKNIFE_AUTO2;
+        public static StaticAnimation DUAL_SHORTKNIFE_AUTO3;
+        public static StaticAnimation DUAL_SHORTKNIFE_AUTO4;
+        public static StaticAnimation SHORTKNIFE_AUTO1;
+        public static StaticAnimation SHORTKNIFE_AUTO2;
+        public static StaticAnimation SHORTKNIFE_AUTO3;
+        public static StaticAnimation SHORTKNIFE_AUTO4;
+        public static StaticAnimation SHORTKNIFE_AUTO5;
+        public static StaticAnimation SHORTKNIFE_AUTO6;
+        public static StaticAnimation BIGSWORD_CLAYMORE_AUTO1;
+        public static StaticAnimation BIGSWORD_CLAYMORE_AUTO2;
+        public static StaticAnimation BIGSWORD_CLAYMORE_AUTO3;
+        public static StaticAnimation BIGSWORD_CLAYMORE_AUTO4;
+        public static StaticAnimation BIGSWORD_CLAYMORE_DASH;
+        public static StaticAnimation BIGSWORD_DUAL_CLAYMORE_AUTO1;
+        public static StaticAnimation BIGSWORD_DUAL_CLAYMORE_AUTO2;
+        public static StaticAnimation BIGSWORD_DUAL_CLAYMORE_AUTO3;
+        public static StaticAnimation BIGSWORD_DUAL_GREATWEAPON_IDLE;
+        public static StaticAnimation BIGSWORD_DUAL_GREATWEAPON_RUN;
+        public static StaticAnimation BIGSWORD_DUAL_GREATWEAPON_WALK;
+        public static StaticAnimation BIGSWORD_GREATWEAPON_IDLE;
+        public static StaticAnimation BIGSWORD_GREATWEAPON_RUN;
+        public static StaticAnimation BIGSWORD_GREATWEAPON_WALK;
+        public static StaticAnimation BIGSWORD_CLAYMORE_SKILL1;
+        public static StaticAnimation LIONCLAW_DUAL;
+        public static StaticAnimation LIONCLAW_DUAL2;
+        public static StaticAnimation LIONCLAW;
+        public static StaticAnimation LIONCLAW2;
+
+
 
         public static AnimationEvent.AnimationEventConsumer PURSUIT_EVENT = ((livingEntityPatch, staticAnimation,
                         objects) -> {
@@ -158,7 +192,7 @@ public class TFLAnimations {
                 // }
                 // if (EpicFightKeyMappings.ATTACK.isDown()) {
                 // livingEntityPatch.playAnimationSynchronized(PURSUIT, 0.0F);
-                // }
+                // }bigsword
         });
 
         @SubscribeEvent
@@ -170,8 +204,246 @@ public class TFLAnimations {
                 HumanoidArmature biped = Armatures.BIPED;
                 CowDevilArmature bipex = com.nameless.theforcelawtweaks.gameasset.Armatures.cowDevilArmature;
                 ;
+                LIONCLAW = new BasicAttackAnimation( 0.1F, "biped/skill/lionclaw", biped,
+
+                        new AttackAnimation.Phase(0F, 0.867F, 0.9F, 0F, 0.9F, InteractionHand.MAIN_HAND,biped.toolR, null)
+                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.setter(-90F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.adder(10F))
+                        ,
+                        new AttackAnimation.Phase(0.9F, 1.5F, 1.633F,  2.167F, 2.167F, InteractionHand.MAIN_HAND,biped.toolR, null)
+                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(200F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.adder(100F))
+                )
+                        .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1F)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1F)
+
+                        .addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addEvents(AnimationEvent.TimePeriodEvent.create(0.733F, 2F, (livingEntityPatch, staticAnimation, objects) -> {
+                                if (livingEntityPatch instanceof ServerPlayerPatch playerPatch) {
+                                        // 给自己添加减伤效果，假设我们使用"伤害减免"的效果
+                                        playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0)); // 100 ticks（5秒）伤害减免
+                                }
+                        }, AnimationEvent.Side.SERVER));
+                LIONCLAW2 = new BasicAttackAnimation( 0.1F, "biped/skill/lionclaw2", biped,
+
+                        new AttackAnimation.Phase(0F, 0.5F,  0.667F, 0F, 0.667F, InteractionHand.MAIN_HAND,biped.toolR, null)
+                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.setter(-80F))//伤害加成
+                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.adder(30F))//冲击加成
+                        ,
+                        new AttackAnimation.Phase(0.667F, 1F, 1.133F,  1.167F, 1.167F, InteractionHand.MAIN_HAND,biped.toolR, null)
+                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(200F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.adder(600F))
+                )
+                        .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1F)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1F)
+                        .addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addProperty(new AnimationProperty.StaticAnimationProperty<MobEffectInstance>(), new MobEffectInstance(EpicFightMobEffects.STUN_IMMUNITY.get(),200,0))
+                        .addEvents(AnimationEvent.TimePeriodEvent.create(0.25F, 1.5F, (livingEntityPatch, staticAnimation, objects) -> {
+                                if (livingEntityPatch instanceof ServerPlayerPatch playerPatch) {
+                                        // 给自己添加减伤效果，假设我们使用"伤害减免"的效果
+                                        //   playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0)); // 100 ticks（5秒）伤害减免
+                                }
+                        }, AnimationEvent.Side.SERVER));
+                //indestructible @p play "theforcelawtweaks:biped/skill/lionclaw_dual" 0 0
+                LIONCLAW_DUAL = new BasicAttackAnimation( 0.1F, "biped/skill/lionclaw_dual", biped,
+
+                        new AttackAnimation.Phase(0F, 0.833F, 0.933F, 0F, 0.933F, InteractionHand.MAIN_HAND,biped.toolR, null)
+                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.setter(-90F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.adder(10F))
+                               ,
+                        new AttackAnimation.Phase(0.933F, 1.533F, 1.667F,  2.167F, 2.167F, InteractionHand.MAIN_HAND,biped.toolR, null)
+                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(200F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.adder(100F))
+                        )
+
+                        .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1F)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1F)
+                        .addState(EntityState.MOVEMENT_LOCKED, true)
+                        .newTimePair(0, 2.167F)
+                        .addState(EntityState.TURNING_LOCKED, true)
+                        .addEvents(AnimationEvent.TimePeriodEvent.create(0.733F, 2F, (livingEntityPatch, staticAnimation, objects) -> {
+                                if (livingEntityPatch instanceof ServerPlayerPatch playerPatch) {
+                                        // 给自己添加减伤效果，假设我们使用"伤害减免"的效果
+                                        playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0)); // 100 ticks（5秒）伤害减免
+                                }
+                        }, AnimationEvent.Side.SERVER));
+
+
+                LIONCLAW_DUAL2 = new BasicAttackAnimation( 0.1F, "biped/skill/lionclaw_dual_2", biped,
+                        new AttackAnimation.Phase(0F, 0.5F,  0.667F, 0F, 0.667F, InteractionHand.MAIN_HAND,biped.toolR, null)
+                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.setter(-80F))//伤害加成
+                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.adder(30F))//冲击加成
+                        ,
+                        new AttackAnimation.Phase(0.933F, 1.533F, 1.667F,  2.167F, 2.167F, InteractionHand.MAIN_HAND,biped.toolR, null)
+                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER, ValueModifier.adder(150F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.adder(100F))
+                        )
+
+                        .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 1F)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1F)
+                        .addState(EntityState.MOVEMENT_LOCKED, true)
+                        .newTimePair(0, 2.167F)
+                        .addState(EntityState.TURNING_LOCKED, true)
+
+                        //.addState(EntityState.INTERRUPTION_LOCKED, true) // 锁定中断
+                        .addEvents(AnimationEvent.TimePeriodEvent.create(0.5F, 2.167F, (livingEntityPatch, staticAnimation, objects) -> {
+                                if (livingEntityPatch instanceof ServerPlayerPatch playerPatch) {
+                                        // 给自己添加减伤效果，假设我们使用"伤害减免"的效果
+                                        playerPatch.getOriginal().addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0)); // 100 ticks（5秒）伤害减免
+                                        // 使用 Optional 来提取 StunType
+                                        StunType stunType = staticAnimation.getProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE).orElse(StunType.NONE);  // 如果为空，默认使用 StunType.NONE
+                                        // 根据 stunType 进行判断
+                                        if (stunType == StunType.HOLD) {
+
+                                        }
+                                        else if (stunType == StunType.NONE) {
+                                                // 如果没有眩晕效果，执行默认行为
+                                        }
+
+                                }
+                        }, AnimationEvent.Side.SERVER))
+                       ;
+
+
+
+                //大剑bigsword
+                BIGSWORD_CLAYMORE_AUTO1 = new BasicAttackAnimation(0.3F, 0.3F, 0.467F, 0.6F, null, biped.toolR,
+                        "biped/bigsword/claymore_auto1", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.0F))
+                       // .addEvents(AnimationEvent.TimeStampedEvent
+                           //     .create(0.5F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT)
+                         //       .params(new Vec3f(0.0F, -0.24F, -2.0F),yesman.epicfight.gameasset.Armatures.BIPED.rootJoint,1.0D, 0.55F))
+                ;
+                BIGSWORD_CLAYMORE_AUTO2 = new BasicAttackAnimation(0F, 0.567F, 0.867F, 1F, null, biped.toolR,
+                        "biped/bigsword/claymore_auto2", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.0F));
+                BIGSWORD_CLAYMORE_AUTO3 = new BasicAttackAnimation(0F, 0.5F, 0.633F, 0.833F, null, biped.toolR,
+                        "biped/bigsword/claymore_auto3", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.0F))
+                      //  .addEvents(AnimationEvent.TimeStampedEvent
+                        //        .create(0.6F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT)
+                        //        .params(new Vec3f(0.0F, -0.24F, -2.0F),yesman.epicfight.gameasset.Armatures.BIPED.rootJoint,1.0D, 0.55F))
+                  ;
+                BIGSWORD_CLAYMORE_AUTO4 = new BasicAttackAnimation(0F, 0.67F, 0.9F, 1.167F, null, biped.toolR,
+                        "biped/bigsword/claymore_auto4", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.0F))
+                       // .addEvents(AnimationEvent.TimeStampedEvent
+                         //       .create(0.77F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT)
+                         //       .params(new Vec3f(0.0F, -0.24F, -2.0F),yesman.epicfight.gameasset.Armatures.BIPED.rootJoint,1.1D, 0.55F))
+                     ;
+
+                BIGSWORD_CLAYMORE_DASH = new DashAttackAnimation(0.1F, 0.667F, 0.6F, 0.8F, 1.333F, null, biped.toolR,
+                        "biped/bigsword/claymore_dash", biped)
+                        .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
+                                Animations.ReusableSources.CONSTANT_ONE);
+
+                BIGSWORD_CLAYMORE_SKILL1 = new BasicAttackAnimation(0.5F, 0.833F, 1.067F, 1.8F, null, biped.toolR,
+                        "biped/bigsword/claymore_heavy1", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.ATTACK_SPEED_FACTOR, 0.9F)
+                        .addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.2F));
+
+                BIGSWORD_DUAL_CLAYMORE_AUTO1 = new BasicAttackAnimation(0.1F, "biped/bigsword/dual_claymore_auto1", biped,
+                        new AttackAnimation.Phase(0F, 0.333F, 0.467F, 0F, 0.467F, InteractionHand.OFF_HAND,
+                                biped.toolR, null),
+                        new AttackAnimation.Phase(0F, 0.8F, 0.9F, 1.2F, 1.2F, InteractionHand.MAIN_HAND,
+                                biped.toolR, null))
+                        .addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.0F));
+                BIGSWORD_DUAL_CLAYMORE_AUTO2 = new BasicAttackAnimation(0.1F, "biped/bigsword/dual_claymore_auto2", biped,
+                        new AttackAnimation.Phase(0F, 0.6F, 0.767F, 0F, 0.767F, InteractionHand.OFF_HAND,
+                                biped.toolR, null),
+                        new AttackAnimation.Phase(0F, 0.867F, 1.0F, 1.333F, 1.333F, InteractionHand.MAIN_HAND,
+                                biped.toolR, null))
+                        .addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.0F));
+                BIGSWORD_DUAL_CLAYMORE_AUTO3 = new BasicAttackAnimation(0.1F, "biped/bigsword/dual_claymore_auto3", biped,
+                        new AttackAnimation.Phase(0F, 0.667F, 1.0F, 0F, 1.0F, InteractionHand.OFF_HAND,
+                                biped.toolR, null),
+                        new AttackAnimation.Phase(0F, 1.03F, 1.2F, 1.667F, 1.667F, InteractionHand.MAIN_HAND,
+                                biped.toolR, null))
+                        .addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.0F));
+
+                BIGSWORD_DUAL_GREATWEAPON_IDLE = new StaticAnimation(true, "biped/bigsword/dual_greatweapon_idle", biped);
+                BIGSWORD_DUAL_GREATWEAPON_WALK = new MovementAnimation(true, "biped/bigsword/dual_greatweapon_walk", biped);
+                BIGSWORD_DUAL_GREATWEAPON_RUN = new MovementAnimation(true, "biped/bigsword/dual_greatweapon_run", biped);
+
+                BIGSWORD_GREATWEAPON_IDLE = new StaticAnimation(true, "biped/bigsword/greatweapon_idle", biped);
+                BIGSWORD_GREATWEAPON_WALK = new MovementAnimation(true, "biped/bigsword/greatweapon_walk", biped);
+                BIGSWORD_GREATWEAPON_RUN = new MovementAnimation(true, "biped/bigsword/greatweapon_run", biped);
+
+
+
+                //匕首dagger
+                SHORTKNIFE_AUTO1 = new BasicAttackAnimation(0.05F, 0.133F, 0.233F, 0.234F, null, biped.toolR,
+                        "biped/dagger/shortknife_auto1", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F);
+                SHORTKNIFE_AUTO2 = new BasicAttackAnimation(0.05F, 0.233F, 0.3F, 0.31F, null, biped.toolR,
+                        "biped/dagger/shortknife_auto2", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F);
+                SHORTKNIFE_AUTO3 = new BasicAttackAnimation(0.05F, 0.3F, 0.434F, 0.435F, null, biped.toolR,
+                        "biped/dagger/shortknife_auto3", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F);
+                SHORTKNIFE_AUTO4 = new BasicAttackAnimation(0.05F, 0.267F, 0.4F, 0.41F, null, biped.toolR,
+                        "biped/dagger/shortknife_auto4", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F);
+                SHORTKNIFE_AUTO5 = new BasicAttackAnimation(0.05F, 0.3F, 0.4F, 0.41F, null, biped.toolR,
+                        "biped/dagger/shortknife_auto5", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F);
+                SHORTKNIFE_AUTO6 = new BasicAttackAnimation(0.05F, 0.467F, 0.567F, 0.568F, null, biped.toolR,
+                        "biped/dagger/shortknife_auto6", biped)
+                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F);
+
                 /// effect give @s minecraft:resistance infinite 4 true 无敌
-                CWO_DEVIL_IDLE = new StaticAnimation(true, "biped/devil/cow_devil_idle", bipex);
+                DUAL_SHORTKNIFE_AUTO1 = new BasicAttackAnimation(0.1F, "biped/dagger/dual_shortknife_auto1", biped,
+                        new AttackAnimation.Phase(0F, 0.1F, 0.2F, 0.3F, 0.3F, InteractionHand.OFF_HAND,
+                                biped.toolR, null),
+                        new AttackAnimation.Phase(0.2F, 0.333F, 0.433F, 0.533F, 0.533F, InteractionHand.OFF_HAND,
+                                biped.toolR, null),
+                        new AttackAnimation.Phase(0.433F, 0.6F, 0.667F, 0.767F, 0.767F, InteractionHand.MAIN_HAND,
+                                biped.toolR, null)).addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.7F));
+                DUAL_SHORTKNIFE_AUTO2 = new BasicAttackAnimation(0.1F, "biped/dagger/dual_shortknife_auto2", biped,
+                        new AttackAnimation.Phase(0F, 0.167F, 0.267F, 0.367F, 0.367F, InteractionHand.MAIN_HAND,
+                                biped.toolR, null),
+                        new AttackAnimation.Phase(0.267F, 0.367F, 0.5F, 0.6F, 0.6F, InteractionHand.MAIN_HAND,
+                                biped.toolR, null),
+                        new AttackAnimation.Phase(0.5F, 0.667F, 0.767F, 0.867F, 0.867F, InteractionHand.OFF_HAND,
+                                biped.toolR, null)).addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.7F));
+             //   indestructible @s play "theforcelawtweaks:biped/bigsword/claymore_dash" 1 0
+                DUAL_SHORTKNIFE_AUTO3 = new BasicAttackAnimation(0.1F, "biped/dagger/dual_shortknife_auto3", biped,
+                        new AttackAnimation.Phase(0F, 0.333F, 0.433F, 0.533F, 0.533F, InteractionHand.MAIN_HAND,
+                                biped.toolR, null),
+                        new AttackAnimation.Phase(0.433F, 0.4F, 0.533F, 0.633F, 0.633F, InteractionHand.OFF_HAND,
+                                biped.toolR, null)).addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.7F));
+                DUAL_SHORTKNIFE_AUTO4 = new BasicAttackAnimation(0.1F, "biped/dagger/dual_shortknife_auto4", biped,
+                        new AttackAnimation.Phase(0F, 0.167F, 0.3F, 0.4F, 0.4F, InteractionHand.MAIN_HAND,
+                                biped.toolR, null),
+                        new AttackAnimation.Phase(0.3F, 0.4F, 0.467F, 0.567F, 0.567F, InteractionHand.OFF_HAND,
+                                biped.toolR, null)).addState(EntityState.MOVEMENT_LOCKED, true)
+                        .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,((dynamicAnimation, livingEntityPatch, v, v1) -> 1.7F));
+
+
+//                DUAL_SHORTKNIFE_AUTO4 = new BasicAttackAnimation(0.05F, 0.433F, 0.55F, 0.833F, null, biped.toolR,
+//                        "biped/dagger/dual_shortknife_auto4", biped)
+//                        .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 0.9F);
+
 
                 // one hand更新
                 SKILL_ROLL_FRONT = new DodgeAnimation(0.08F, 0.6F, "biped/skill/roll_front", 0.6F, 1.65F, biped)
@@ -258,8 +530,8 @@ public class TFLAnimations {
                                                 ((dynamicAnimation, livingEntityPatch, v1, v2) -> 1.1F))
                                 .addStateRemoveOld(EntityState.CAN_BASIC_ATTACK, false);
 
-                /// indestructible @s play "theforcelawtweaks:biped/skill/slidingstep_right" 1 0
-                /// 0修
+                /// indestructible @s play "theforcelawtweaks:biped/dagger/dual_shortknife_auto2" 1 0
+                /// 0修gx
 
                 // yullian
                 YULLIAN_COMBOA1 = new BasicAttackAnimation(0.1F, 0.8F, 0.93F, 1F, null, biped.toolR,
@@ -304,7 +576,7 @@ public class TFLAnimations {
                 YULLIAN_RUN = new StaticAnimation(true, "biped/yullian/yullian_run", biped);
                 YULLIAN_IDLE = new StaticAnimation(true, "biped/yullian/yullian_idle", biped);
 
-                /// indestructible @s play "theforcelawtweaks:biped/devil/cow_devil_attack" 0 0
+                /// indestructible @s play "theforcelawtweaks:biped/combat/handhalfsword_auto1" 0 0
                 HANDHALFSWORD_AUTO1 = new BasicAttackAnimation(0.1F, 0.46F, 0.56F, 0.58F, null, biped.toolR,
                                 "biped/combat/handhalfsword_auto1", biped)
                                 .addProperty(AnimationProperty.AttackAnimationProperty.BASIS_ATTACK_SPEED, 1.6F)
@@ -686,11 +958,8 @@ public class TFLAnimations {
                                 .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
                                                 Animations.ReusableSources.CONSTANT_ONE)
                                 .addEvents(AnimationEvent.TimeStampedEvent
-                                                .create(0.95F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE,
-                                                                AnimationEvent.Side.CLIENT)
-                                                .params(new Vec3f(0.0F, -0.24F, -2.0F),
-                                                                yesman.epicfight.gameasset.Armatures.BIPED.rootJoint,
-                                                                1.1D, 0.55F));
+                                                .create(0.95F, Animations.ReusableSources.FRACTURE_GROUND_SIMPLE, AnimationEvent.Side.CLIENT)
+                                                .params(new Vec3f(0.0F, -0.24F, -2.0F),yesman.epicfight.gameasset.Armatures.BIPED.rootJoint,1.1D, 0.55F));
                 COLOSSALSWORD_AUTO2 = new BasicAttackAnimation(0.1F, "biped/combat/colossalsword/greatsword2", biped,
                                 new AttackAnimation.Phase(0F, 0.76F, 0.70F, 1.23F, 1.5F, Float.MAX_VALUE, biped.toolR,
                                                 null))
@@ -736,32 +1005,20 @@ public class TFLAnimations {
                 EXECUTE = new BasicAttackWinAnimation(0.0F, 0.0F, 2.65F, 1.3F, 1.75F, 0.7F, 2.65F, 0.0F, 0.0F,
                                 "biped/hit/execute", biped,
                                 new AttackAnimation.Phase(0.0F, 0.75F, 0.51F, 0.95F, 3F, biped.toolR, null)
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER,
-                                                                ValueModifier.multiplier(0.1F))
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,
-                                                                ValueModifier.setter(1F))
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE,
-                                                                StunType.HOLD)
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.PARTICLE,
-                                                                EpicFightParticles.BLADE_RUSH_SKILL)
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,
-                                                                ValueModifier.multiplier(5F))
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.HIT_SOUND,
-                                                                EpicFightSounds.EVISCERATE.get()),
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER,ValueModifier.multiplier(0.1F))
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.HOLD)
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.PARTICLE,EpicFightParticles.BLADE_RUSH_SKILL)
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.multiplier(5F))
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.HIT_SOUND, EpicFightSounds.EVISCERATE.get()),
                                 new AttackAnimation.Phase(1.05F, 2.95F, 3.15F, 6.0F, Float.MAX_VALUE, biped.rootJoint,
                                                 ColliderPreset.BIPED_BODY_COLLIDER)
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE,
-                                                                StunType.KNOCKDOWN)
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.HIT_SOUND,
-                                                                EpicFightSounds.BLADE_RUSH_FINISHER.get())
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.PARTICLE,
-                                                                EpicFightParticles.EVISCERATE)
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER,
-                                                                ValueModifier.multiplier(2F))
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,
-                                                                ValueModifier.setter(1F))
-                                                .addProperty(AnimationProperty.AttackPhaseProperty.EXTRA_DAMAGE,
-                                                                Set.of(ExtraDamageInstance.TARGET_LOST_HEALTH
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE,StunType.KNOCKDOWN)
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.HIT_SOUND,EpicFightSounds.BLADE_RUSH_FINISHER.get())
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.PARTICLE,EpicFightParticles.EVISCERATE)
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.DAMAGE_MODIFIER,ValueModifier.multiplier(2F))
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.MAX_STRIKES_MODIFIER,ValueModifier.setter(1F))
+                                                .addProperty(AnimationProperty.AttackPhaseProperty.EXTRA_DAMAGE,Set.of(ExtraDamageInstance.TARGET_LOST_HEALTH
                                                                                 .create(0.2F))))
                                 .addProperty(AnimationProperty.ActionAnimationProperty.STOP_MOVEMENT, true)
                                 .addProperty(AnimationProperty.ActionAnimationProperty.MOVE_ON_LINK, false)
@@ -901,12 +1158,9 @@ public class TFLAnimations {
                 DUAL_TACHI_SKILL2 = new BasicAttackAnimation(0.5F, 1.167F, 1.35F, 1.667F, null, biped.toolR,
                                 "biped/combat/dual_tachi/uchigatana_heavy2", biped)
                                 .addProperty(AnimationProperty.AttackPhaseProperty.STUN_TYPE, StunType.FALL)
-                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,
-                                                ValueModifier.setter(3F))
-                                .addProperty(AnimationProperty.AttackPhaseProperty.ARMOR_NEGATION_MODIFIER,
-                                                ValueModifier.setter(25F))
-                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,
-                                                Animations.ReusableSources.CONSTANT_ONE)
+                                .addProperty(AnimationProperty.AttackPhaseProperty.IMPACT_MODIFIER,ValueModifier.setter(3F))
+                                .addProperty(AnimationProperty.AttackPhaseProperty.ARMOR_NEGATION_MODIFIER, ValueModifier.setter(25F))
+                                .addProperty(AnimationProperty.StaticAnimationProperty.PLAY_SPEED_MODIFIER,Animations.ReusableSources.CONSTANT_ONE)
                                 .addState(EntityState.MOVEMENT_LOCKED, true);
 
                 // indestructible @s play

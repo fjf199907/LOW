@@ -105,9 +105,9 @@ public class WeaponCapabilityPresents {
                                         TFLAnimations.COLOSSALSWORD_AUTO4,
                                         TFLAnimations.COLOSSALSWORD_AUTO5,
                                         TFLAnimations.COLOSSALSWORD_AUTO3,
-                                TFLAnimations.COLOSSALSWORD_AUTO4,
-                                TFLAnimations.COLOSSALSWORD_AUTO5,
-                                TFLAnimations.COLOSSALSWORD_AUTO3,
+                                        TFLAnimations.COLOSSALSWORD_AUTO4,
+                                        TFLAnimations.COLOSSALSWORD_AUTO5,
+                                        TFLAnimations.COLOSSALSWORD_AUTO3,
 
 
                                         Animations.GREATSWORD_DASH,
@@ -222,11 +222,114 @@ public class WeaponCapabilityPresents {
                                         .getItemStackCapability(entitypatch.getOriginal().getOffhandItem())
                                         .getWeaponCategory() == CapabilityItem.WeaponCategories.LONGSWORD);
 
+        public static final Function<Item, CapabilityItem.Builder> DAGGER = (item) -> WeaponCapability.builder()
+                .category(CapabilityItem.WeaponCategories.LONGSWORD)
+                .styleProvider((playerpatch) -> playerpatch.getHoldingItemCapability(InteractionHand.OFF_HAND)
+                        .getWeaponCategory() == CapabilityItem.WeaponCategories.LONGSWORD
+                        ? CapabilityItem.Styles.TWO_HAND
+                        : CapabilityItem.Styles.ONE_HAND)
+                .hitSound(EpicFightSounds.BLADE_HIT.get())
+                .swingSound(EpicFightSounds.WHOOSH.get())
+                .canBePlacedOffhand(true)
+                .collider(ColliderPreset.LONGSWORD)
+                .weaponCombinationPredicator((entitypatch) -> EpicFightCapabilities
+                        .getItemStackCapability(entitypatch.getOriginal().getOffhandItem())
+                        .getWeaponCategory() == CapabilityItem.WeaponCategories.LONGSWORD)
+                .newStyleCombo(CapabilityItem.Styles.ONE_HAND,
+                        TFLAnimations.SHORTKNIFE_AUTO1,
+                        TFLAnimations.SHORTKNIFE_AUTO2,
+                        TFLAnimations.SHORTKNIFE_AUTO3,
+                        TFLAnimations.SHORTKNIFE_AUTO4,
+                        TFLAnimations.SHORTKNIFE_AUTO5,
+                        TFLAnimations.SHORTKNIFE_AUTO6,
+                        TFLAnimations.UCHIGATANA_DASH,
+                        Animations.GREATSWORD_AIR_SLASH)
+                .newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                        TFLAnimations.DUAL_SHORTKNIFE_AUTO1,
+                        TFLAnimations.DUAL_SHORTKNIFE_AUTO2,
+                        TFLAnimations.DUAL_SHORTKNIFE_AUTO3,
+                        TFLAnimations.DUAL_SHORTKNIFE_AUTO4,
+
+                        Animations.DAGGER_DUAL_DASH,
+                        Animations.SWORD_DUAL_AIR_SLASH)
+                .innateSkill(CapabilityItem.Styles.ONE_HAND,itemStack -> LOWSkills.DUAL_TACHI_SWORD_HEAVY_ATTACK)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.IDLE,
+                        Animations.BIPED_IDLE)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.WALK,
+                        TFLAnimations.TACHI_WALK)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.RUN,
+                        TFLAnimations.TACHI_RUN)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.IDLE,
+                        Animations.BIPED_HOLD_DUAL_WEAPON)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.KNEEL,
+                        Animations.BIPED_HOLD_DUAL_WEAPON)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.WALK, Animations.BIPED_WALK)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.CHASE,
+                        TFLAnimations.TACHI_RUN)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.RUN,
+                        Animations.BIPED_RUN_DUAL)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.SNEAK,
+                        Animations.BIPED_HOLD_DUAL_WEAPON)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.SWIM,
+                        Animations.BIPED_HOLD_DUAL_WEAPON)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.FLOAT,
+                        Animations.BIPED_HOLD_DUAL_WEAPON)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.FALL,
+                        Animations.BIPED_HOLD_DUAL_WEAPON)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.BLOCK,
+                        Animations.LONGSWORD_GUARD)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.BLOCK,
+                        Animations.SWORD_DUAL_GUARD)
+                .weaponCombinationPredicator((entitypatch) -> EpicFightCapabilities
+                        .getItemStackCapability(entitypatch.getOriginal().getOffhandItem())
+                        .getWeaponCategory() == CapabilityItem.WeaponCategories.LONGSWORD);
+
+        public static final Function<Item, CapabilityItem.Builder> BIGSWORD = (item) -> WeaponCapability.builder()
+                .category(CapabilityItem.WeaponCategories.LONGSWORD)
+                .styleProvider((playerpatch) -> playerpatch.getHoldingItemCapability(InteractionHand.OFF_HAND).getWeaponCategory() == CapabilityItem.WeaponCategories.LONGSWORD
+                        ? CapabilityItem.Styles.TWO_HAND
+                        : CapabilityItem.Styles.ONE_HAND)
+                .hitSound(EpicFightSounds.BLADE_HIT.get())
+                .swingSound(EpicFightSounds.WHOOSH.get())
+                .canBePlacedOffhand(true)
+                .collider(ColliderPreset.LONGSWORD)
+                .weaponCombinationPredicator((entitypatch) -> EpicFightCapabilities
+                        .getItemStackCapability(entitypatch.getOriginal().getOffhandItem())
+                        .getWeaponCategory() == CapabilityItem.WeaponCategories.LONGSWORD)
+                .newStyleCombo(CapabilityItem.Styles.ONE_HAND,
+                        //TFLAnimations.BIGSWORD_CLAYMORE_AUTO1,
+                       /// TFLAnimations.BIGSWORD_CLAYMORE_AUTO2,
+                      //  TFLAnimations.BIGSWORD_CLAYMORE_AUTO3,
+                       //  TFLAnimations.BIGSWORD_CLAYMORE_AUTO4,
+                        //TFLAnimations.LIONCLAW_DUAL,
+                        TFLAnimations.LIONCLAW_DUAL2,
+                        TFLAnimations.BIGSWORD_CLAYMORE_DASH,
+                        Animations.GREATSWORD_AIR_SLASH)
+                .newStyleCombo(CapabilityItem.Styles.TWO_HAND,
+                        TFLAnimations.BIGSWORD_DUAL_CLAYMORE_AUTO1,
+                        TFLAnimations.BIGSWORD_DUAL_CLAYMORE_AUTO2,
+                        TFLAnimations.BIGSWORD_DUAL_CLAYMORE_AUTO3,
+                        Animations.DAGGER_DUAL_DASH,
+                        Animations.SWORD_DUAL_AIR_SLASH)
+                .innateSkill(CapabilityItem.Styles.ONE_HAND,itemStack -> LOWSkills.BIGSWORD_SWORD_HEAVY_ATTACK)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.IDLE,TFLAnimations.BIGSWORD_GREATWEAPON_IDLE)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.WALK,TFLAnimations.BIGSWORD_GREATWEAPON_WALK)
+                .livingMotionModifier(CapabilityItem.Styles.ONE_HAND, LivingMotions.RUN,TFLAnimations.BIGSWORD_GREATWEAPON_RUN)
+
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.IDLE, TFLAnimations.BIGSWORD_DUAL_GREATWEAPON_IDLE)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.WALK, TFLAnimations.BIGSWORD_DUAL_GREATWEAPON_WALK)
+                .livingMotionModifier(CapabilityItem.Styles.TWO_HAND, LivingMotions.RUN, TFLAnimations.BIGSWORD_DUAL_GREATWEAPON_RUN)
+
+                .weaponCombinationPredicator((entitypatch) -> EpicFightCapabilities
+                        .getItemStackCapability(entitypatch.getOriginal().getOffhandItem())
+                        .getWeaponCategory() == CapabilityItem.WeaponCategories.LONGSWORD);
         @SubscribeEvent
         public static void register(WeaponCapabilityPresetRegistryEvent event) {
                 event.getTypeEntry().put(new ResourceLocation(TheForceLawTweaks.MODID, "handhalfsword"), HANDHALFSWORD);
                 event.getTypeEntry().put(new ResourceLocation(TheForceLawTweaks.MODID, "colossalsword"), COLOSSALSWORD);
                 event.getTypeEntry().put(new ResourceLocation(TheForceLawTweaks.MODID, "uchigatana"), DUAL_TACHI);
+                event.getTypeEntry().put(new ResourceLocation(TheForceLawTweaks.MODID, "dagger"), DAGGER);
+                event.getTypeEntry().put(new ResourceLocation(TheForceLawTweaks.MODID, "bigsword"), BIGSWORD);
                 TFLLOGGER.info("register weapon type");
         }
 }
