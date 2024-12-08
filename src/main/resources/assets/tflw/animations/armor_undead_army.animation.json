@@ -1,0 +1,22 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"idle": {
+			"loop": true
+		},
+		"open_mask": {
+			"loop": true,
+			"bones": {
+				"mask": {
+					"rotation": {
+						"vector": [-28.5, 0, 0]
+					},
+					"position": {
+						"vector": [0, 2.8, -1.9]
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

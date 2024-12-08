@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "tflw:item/long_sword_in_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "tflw:item/long_sword_in_inventory"
+    },
+    "ground": {
+      "parent": "tflw:item/long_sword_in_inventory"
+    },
+    "fixed": {
+      "parent": "tflw:item/long_sword_in_inventory"
+    }
+  }
+}
