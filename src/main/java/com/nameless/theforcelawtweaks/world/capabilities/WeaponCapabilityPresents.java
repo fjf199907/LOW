@@ -297,12 +297,12 @@ public class WeaponCapabilityPresents {
                         .getItemStackCapability(entitypatch.getOriginal().getOffhandItem())
                         .getWeaponCategory() == CapabilityItem.WeaponCategories.LONGSWORD)
                 .newStyleCombo(CapabilityItem.Styles.ONE_HAND,
-                        //TFLAnimations.BIGSWORD_CLAYMORE_AUTO1,
-                       /// TFLAnimations.BIGSWORD_CLAYMORE_AUTO2,
-                      //  TFLAnimations.BIGSWORD_CLAYMORE_AUTO3,
-                       //  TFLAnimations.BIGSWORD_CLAYMORE_AUTO4,
-                        //TFLAnimations.LIONCLAW_DUAL,
-                        TFLAnimations.LIONCLAW_DUAL2,
+                        TFLAnimations.BIGSWORD_CLAYMORE_AUTO1,
+                        TFLAnimations.BIGSWORD_CLAYMORE_AUTO2,
+                        TFLAnimations.BIGSWORD_CLAYMORE_AUTO3,
+                         TFLAnimations.BIGSWORD_CLAYMORE_AUTO4,
+                        TFLAnimations.LIONCLAW_DUAL,
+
                         TFLAnimations.BIGSWORD_CLAYMORE_DASH,
                         Animations.GREATSWORD_AIR_SLASH)
                 .newStyleCombo(CapabilityItem.Styles.TWO_HAND,
